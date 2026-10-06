@@ -1,0 +1,10 @@
+# Program Name: .gitignore
+# Language: gitignore
+# Function: Exclude macOS folder metadata from Git
+# Created: 2026-09-05
+# Last Updated: 2026-09-05
+# Author: Takashi Oikawa
+# AI: Cursor
+# Memo:
+
+.DS_Store
