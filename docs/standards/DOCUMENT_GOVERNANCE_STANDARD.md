@@ -3,10 +3,10 @@ Program Name: Document Governance Standard
 Language: Markdown
 Function: 全Markdown文書の共通Document Infoヘッダー正本とGovernance検証資産の配布規則を定める
 Created: 2026-09-05
-Last Updated: 2026-09-19
+Last Updated: 2026-10-08
 Author: Takashi Oikawa
 AI: Cursor Grok 4.6
-Memo: 設計文書固有規則はDESIGN_DOCUMENT_STANDARD.mdを正とする。人間向け表示項目の併記形式は本文書§5.6を正とする
+Memo: 設計文書固有規則はDESIGN_DOCUMENT_STANDARD.mdを正とする。User向け表示項目の併記形式は本文書§5.6を正とする
 -->
 
 # Document Governance Standard（文書ガバナンス標準）
@@ -18,7 +18,7 @@ Memo: 設計文書固有規則はDESIGN_DOCUMENT_STANDARD.mdを正とする。�
 | Version（バージョン） | 1.7 |
 | Status（ステータス） | Approved |
 | Created Date（作成日） | 2026-09-05 |
-| Last Updated（最終更新日） | 2026-09-19 |
+| Last Updated（最終更新日） | 2026-10-08 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | `/CONSTITUTION.md` / `/AGENTS.md` / `solacom_main/docs/standards/DESIGN_DOCUMENT_STANDARD.md` / `solacom_main/docs/standards/DOCUMENT_HISTORY_RULE.md` / `solacom_main/docs/standards/SPEC_VERSION_HEADER_SPEC.md` |
 | Source Location（正本配置） | `solacom_main/docs/standards/DOCUMENT_GOVERNANCE_STANDARD.md` |
@@ -81,7 +81,7 @@ Memo: 設計文書固有規則はDESIGN_DOCUMENT_STANDARD.mdを正とする。�
 - Governance検証資産の Canonical Source は `solacom_main/docs/standards/project-bootstrap/` である
 - `project-bootstrap` の validator / workflow は Canonical Source ではなく Distribution Copy である
 - 設計7文書は初回導入後にプロジェクト固有の設計正本となる（`CONSTITUTION.md` §6.5）。本項は DEVELOPMENT 等の現行 Profile に適用する。LEARNING には適用しない
-- 人間向け表示項目の正式形式は English（日本語）である
+- User向け表示項目の正式形式は English（日本語）である
 
 ---
 
@@ -282,7 +282,7 @@ Canonical Source と Distribution Copy / Runtime Artifact は `cmp` による完
 
 ### 5.6 Bilingual Display Rule（日本語・英語併記規則）
 
-管理対象 Markdown の人間向け表示項目は、次を正式形式とする。
+管理対象 Markdown のUser向け表示項目は、次を正式形式とする。
 
 ```text
 English（日本語）
@@ -391,7 +391,7 @@ Validator は §5.2 の English（日本語）項目名を正式形式として�
 - Repository 固有パスを中央標準の固定除外一覧へ追加しない
 - `README.md` および `project-notes/` 配下の Markdown は、明示除外または Git ignored でない限り検査対象に含める
 - 必須ヘッダー項目名は本文書 §5.2 の表記（English（日本語））と同一文字列にする
-- 人間向け表示項目の併記形式は本文書 §5.6 を正とする。他文書で独自定義しない
+- User向け表示項目の併記形式は本文書 §5.6 を正とする。他文書で独自定義しない
 - `/CONSTITUTION.md` と `/AGENTS.md` は検査対象外（配置がリポジトリ直下であり、ヘッダ形式が異なる）
 - Governance検証資産は Canonical Source から明示 Mapping で配布する。Local Edit は禁止する。LEARNING Profile では必須とせず、導入時に配布しない
 - 設計文書固有規則は `DESIGN_DOCUMENT_STANDARD.md` を参照する。同標準は DEVELOPMENT Repository 向けであり、LEARNING へ無条件適用しない

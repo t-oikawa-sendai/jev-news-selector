@@ -15,17 +15,17 @@ LOCAL_EDIT_POLICY: PROHIBITED
 | Version（バージョン） | 1.5 |
 | Status（ステータス） | Approved |
 | Created Date（作成日） | 2026-09-10 |
-| Last Updated（最終更新日） | 2026-09-24 |
+| Last Updated（最終更新日） | 2026-10-08 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | CONSTITUTION.md / ../DOCUMENT_GOVERNANCE_STANDARD.md / project-notes/CURRENT_TEMPLATE.md |
 
 ## Repository Purpose（リポジトリ目的）
 
-Purpose の確定権限は利用者（Takashi Oikawa）にある。AI は Repository 内容から Purpose を推測しない。
+Purpose の確定権限はUser（Takashi Oikawa）にある。AI は Repository 内容から Purpose を推測しない。
 
-利用者が Purpose = LEARNING と明示した場合のみ、LEARNING Profile を適用する。
+Userが Purpose = LEARNING と明示した場合のみ、LEARNING Profile を適用する。
 
-利用者が LEARNING と明示していない場合は、DEVELOPMENT 等の現行 Profile を維持する。GOVERNANCE / DISTRIBUTION / EXPERIMENT の Document Profile 再設計は行わない。
+Userが LEARNING と明示していない場合は、DEVELOPMENT 等の現行 Profile を維持する。GOVERNANCE / DISTRIBUTION / EXPERIMENT の Document Profile 再設計は行わない。
 
 ## CURRENT.md Reading Rule（CURRENT.md読込規則）
 
@@ -74,7 +74,7 @@ Evidence なしに作業を Completed へ移動しない。
 
 ```text
 1. CURRENT.md の Related Decisions に Decision 番号がある
-2. 利用者が Decision 番号を指定した
+2. Userが Decision 番号を指定した
 3. 構成・運用方針・Distribution方式の変更を検討する
 ```
 
@@ -86,7 +86,7 @@ LEARNING における意味は、存在し、かつ必要時のみ読むこと�
 
 ### LEARNING
 
-利用者が Purpose = LEARNING と明示した場合、作業開始前に次の順番で読む。
+Userが Purpose = LEARNING と明示した場合、作業開始前に次の順番で読む。
 
 1. `/CONSTITUTION.md`
 2. `/README.md`
@@ -98,7 +98,7 @@ LEARNING における意味は、存在し、かつ必要時のみ読むこと�
 
 ### DEVELOPMENT and Others（DEVELOPMENT等）
 
-利用者が LEARNING と明示していない場合、作業開始前に次の順番で読む。
+Userが LEARNING と明示していない場合、作業開始前に次の順番で読む。
 
 1. `/CONSTITUTION.md`
 2. `/docs/design/README.md`
@@ -119,7 +119,7 @@ LEARNING における意味は、存在し、かつ必要時のみ読むこと�
 
 ### LEARNING
 
-利用者が Purpose = LEARNING と明示した場合、作業開始前に次の必須Governance文書の存在を確認する。
+Userが Purpose = LEARNING と明示した場合、作業開始前に次の必須Governance文書の存在を確認する。
 
 ```text
 /README.md
@@ -134,7 +134,7 @@ LEARNING における意味は、存在し、かつ必要時のみ読むこと�
 
 ### DEVELOPMENT and Others（DEVELOPMENT等）
 
-利用者が LEARNING と明示していない場合、作業開始前に、必須Governance文書 10 件の存在を確認する。
+Userが LEARNING と明示していない場合、作業開始前に、必須Governance文書 10 件の存在を確認する。
 
 ```text
 /CONSTITUTION.md
@@ -253,7 +253,7 @@ Report Format（報告形式）:
 ## Pre-commit Review（commit前レビュー）
 
 - 実装完了を理由に、実装担当 AI が自動的に commit / push してはならない
-- commit / push は、利用者または設計担当から明示指示がある場合のみ実施できる
+- commit / push は、Userまたは設計担当から明示指示がある場合のみ実施できる
 - 明示指示前に、設計担当による git diff、F/O/R照合、対象外差分非接触のレビューを必須とする
 - レビューで1件でもFAILがある場合はcommit不可
 

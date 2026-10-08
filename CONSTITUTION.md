@@ -26,7 +26,7 @@ LOCAL_EDIT_POLICY: PROHIBITED
 
 本憲法は、中央標準を導入した各リポジトリの全参加者に適用する。
 
-- User（利用者・プロジェクト責任者）
+- User（プロジェクト責任者）
 - Designer（設計担当）
 - Implementation Agent（実装担当 AI）
 - Reviewer（レビュー担当）
@@ -36,7 +36,7 @@ LOCAL_EDIT_POLICY: PROHIBITED
 
 ## 3. Roles and Authority（役割と権限）
 
-### 3.1 User（利用者）
+### 3.1 User
 
 - 業務仕様の最終決定権を持つ
 - 確定仕様、未決事項、却下仕様の分類変更を承認する
@@ -102,7 +102,7 @@ solacom_main/docs/standards/project-bootstrap/project-notes/CURRENT_TEMPLATE.md
 
 ### 5.2 Classification Authority（分類権限）
 
-- 分類権限は利用者および設計担当のみが持つ
+- 分類権限はUserおよび設計担当のみが持つ
 - 実装担当 AI は分類を変更してはならない
 - 確定仕様を未決事項へ降格してはならない
 - 未決事項を確定仕様へ昇格してはならない
@@ -153,7 +153,7 @@ solacom_main/docs/standards/project-bootstrap/project-notes/CURRENT_TEMPLATE.md
 
 共通Governanceに加え、Repository Purpose に応じた Document Profile を適用する。
 
-Purpose の確定権限は利用者（Takashi Oikawa）にある。AI および installer は Repository 内容から Purpose を推測してはならない。
+Purpose の確定権限はUser（Takashi Oikawa）にある。AI および installer は Repository 内容から Purpose を推測してはならない。
 
 installer の `--purpose` は `docs/CLASSIFICATION_RULE.md` の Purpose 5値と整合する。
 
@@ -332,7 +332,7 @@ Preflight
 
 本項は LEARNING を除く現行 Profile に適用する。LEARNING Preflight は §6.0 を正とする。
 
-Migration承認後のみ、既存 `/CHANGELOG.md` を利用者が再利用承認済みである明示的再実行経路を使用する。
+Migration承認後のみ、既存 `/CHANGELOG.md` をUserが再利用承認済みである明示的再実行経路を使用する。
 
 このモードでも、既存Governance 9文書が 1 件でも存在すれば停止する。Validation Assets の衝突確認もコピー開始前に行う。validator または workflow が 1 件でも存在すれば無変更停止する。
 
@@ -396,7 +396,7 @@ Governance Validation Assets
 
 - リポジトリルート、ブランチ、HEAD、`origin/main` の一致
 - 未コミット差分の有無と対象外差分への非接触
-- 利用者が明示した Repository Purpose。内容から推測しない
+- Userが明示した Repository Purpose。内容から推測しない
 - LEARNING の場合: 必須Governance文書 3 件（README / CONSTITUTION / AGENTS）の存在。`docs/design` 7文書および Validation Assets の不存在を欠落としない
 - DEVELOPMENT 等の場合: 必須Governance文書 10 件の存在（初回導入済みか）
 - DEVELOPMENT 等の場合: 必須Governance検証資産 2 件の存在（Governance適用済みか）
@@ -424,7 +424,7 @@ Governance Validation Assets
 
 ## 10. Git and Deployment Control（Git・デプロイ統制）
 
-- commit、push、deploy は利用者または設計担当の明示指示がある場合のみ
+- commit、push、deploy はUserまたは設計担当の明示指示がある場合のみ
 - 実装担当 AI は、作業完了を理由に commit してはならない
 - force push、hard reset、clean 等の破壊的操作は禁止（明示指示時を除く）
 - clasp pull / push / deploy は明示指示がある場合のみ

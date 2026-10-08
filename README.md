@@ -48,7 +48,13 @@ Memo: 設計段階のRepository固有README。記載した機能は設計上の�
 
 ## 1. Overview（概要）
 
-`jev-news-selector` は、利用者が任意の時刻に手動起動するローカルBotである。Botが処理した最新ニュース記事について、Jevが対面指導への有用度・対象レベル・記事カテゴリを判定し、その結果をMarkdownとしてObsidianへ保存する。
+`jev-news-selector` は、Userが任意の時刻に手動起動するローカルBotである。
+
+Botは、以下の処理を順に行う。
+
+1. 最新ニュース記事を取得する。
+2. 取得した記事について、Jevが対面指導への有用度・対象レベル・記事カテゴリを判定する。
+3. 判定結果をMarkdownとしてObsidianへ保存する。
 
 Botは GoogleニュースのRSSで記事を取得する。この方式は採用済みであり、検証は未完了である。入口は分野・検索語で絞り、検証用の件数上限を併用する。正本は [02_REQUIREMENTS_DEFINITION.md](./docs/design/02_REQUIREMENTS_DEFINITION.md) §5.1.6 である。Botは最終的に到達した記事URLと記事の公開日を確認し、Bot実行日または前日（日本時間）に公開された記事だけを判定・保存する。
 
@@ -70,7 +76,7 @@ IT初心者への対面指導で使うニュース記事の収集・判定・分
 
 以下は設計上の機能であり、未実装である。
 
-- 利用者が任意の時刻にBotを手動起動する。定期自動起動は採用しない。記事の探索・選択・URLコピー・URL手入力は要求しない。起動のUI・コマンド形式は未確認
+- Userが任意の時刻にBotを手動起動する。定期自動起動は採用しない。記事の探索・選択・URLコピー・URL手入力は要求しない。起動のUI・コマンド形式は未確認
 - GoogleニュースのRSSで記事を取得する。方式は採用済みであり、検証は未完了である。入口は分野・検索語で絞り、全検索語の合計で1回最大50件を検証用上限とする。正本は [02_REQUIREMENTS_DEFINITION.md](./docs/design/02_REQUIREMENTS_DEFINITION.md) §5.1.6
 - 処理対象記事について、最終的に到達したニュース提供元の記事URL（最終記事URL）を取得する
 - 記事のタイトル・公開日・判定に必要な本文を取得する
@@ -79,7 +85,7 @@ IT初心者への対面指導で使うニュース記事の収集・判定・分
 - 判定結果を Obsidian Vault の `Bot News/YYYY-MM-DD/`（初回処理日）へ、1記事1Markdown（YAML frontmatter付き）として保存する
 - 最終記事URLを一意キーとし、登録済みの記事は対象日条件を満たす場合にJevで再判定して既存Markdownを更新する。公開日は最新の取得値へ更新し、初回処理日と保存先フォルダは変えない
 - 入口の処理対象に入り、対象日判定を通過した記事は全件保存する。Jev Score を理由に除外しない
-- 初期調整期間は人間評価を記録し、Jev判定と比較できるようにする。人間評価はJev再判定で上書きしない
+- 初期調整期間はUser評価を記録し、Jev判定と比較できるようにする。User評価はJev再判定で上書きしない
 
 機能要件の正本は [02_REQUIREMENTS_DEFINITION.md](./docs/design/02_REQUIREMENTS_DEFINITION.md) である。
 
@@ -87,7 +93,7 @@ IT初心者への対面指導で使うニュース記事の収集・判定・分
 
 ## 4. Target Users（利用対象）
 
-主利用者は Repository管理者本人である。不特定多数向けのサービスとして設計しない。
+主Userは Repository管理者本人である。不特定多数向けのサービスとして設計しない。
 
 ---
 
@@ -99,7 +105,7 @@ IT初心者への対面指導で使うニュース記事の収集・判定・分
 | OS | macOS |
 | Execution（実行形態） | ローカル実行 |
 | Language（言語） | Python |
-| Startup（起動） | 利用者による任意時刻の手動起動（起動のUI・コマンド形式は未確認。記事の探索・選択・URLコピー・URL手入力は要求しない） |
+| Startup（起動） | Userによる任意時刻の手動起動（起動のUI・コマンド形式は未確認。記事の探索・選択・URLコピー・URL手入力は要求しない） |
 
 Webアプリ、クラウド常駐サービスとしては構成しない。ニュース取得は GoogleニュースのRSS方式を採用し、検証する。RSSのURL・使用ライブラリは未確認である。記事情報の抽出方式は O-05（状態は OPEN。具体値は原記録未復元）であり、[05_ARCHITECTURE_DESIGN.md](./docs/design/05_ARCHITECTURE_DESIGN.md) で管理する。
 
@@ -117,11 +123,11 @@ flowchart TD
     jev -->|"Score・対象レベル<br/>カテゴリ"| md["Markdown生成・更新"]
     bot -->|"記事情報"| md
     md --> vault["Obsidian"]
-    human["初期調整の人間評価"] -->|"人間評価の項目"| vault
+    human["初期調整のUser評価"] -->|"User評価の項目"| vault
 ```
 
 - 対象条件を通過した記事について、Jevの判定結果と記事情報を保存・更新する流れの概要である。処理の分岐は [04_UI_AND_FLOW_DESIGN.md](./docs/design/04_UI_AND_FLOW_DESIGN.md#article-diagram) を参照する
-- 人間評価は初期調整期間の別入力であり、Jev結果を上書きしない
+- User評価は初期調整期間の別入力であり、Jev結果を上書きしない
 - 詳細なデータの流れは [05_ARCHITECTURE_DESIGN.md](./docs/design/05_ARCHITECTURE_DESIGN.md#data-flow-diagram) を正とする
 - 本図は、RSSのURL・抽出方式・使用ライブラリ・本文保存量・起動UIを定めない。公開日による対象外、再処理時の保持項目、入口の50件上限は省略しており、要件から削除したものではない
 
@@ -132,7 +138,7 @@ flowchart TD
 - [構成の図](./docs/design/05_ARCHITECTURE_DESIGN.md#system-diagram)
 - [データの流れ](./docs/design/05_ARCHITECTURE_DESIGN.md#data-flow-diagram)
 
-初期調整期間の人間評価は、保存された記事Markdownに対して利用者が別途記録する（入力方法は未決）。Jevの結果は上書きしない。
+初期調整期間のUser評価は、保存された記事Markdownに対してUserが別途記録する（入力方法は未決）。Jevの結果は上書きしない。
 
 操作と分岐の詳細は [04_UI_AND_FLOW_DESIGN.md](./docs/design/04_UI_AND_FLOW_DESIGN.md) を正とする。
 
@@ -160,7 +166,7 @@ Repository Purpose は `DEVELOPMENT` である。
 | [01_REQUEST_DEFINITION.md](./docs/design/01_REQUEST_DEFINITION.md) | なぜ作るか |
 | [02_REQUIREMENTS_DEFINITION.md](./docs/design/02_REQUIREMENTS_DEFINITION.md) | 何を満たすか |
 | [03_DATA_AND_SECURITY_DESIGN.md](./docs/design/03_DATA_AND_SECURITY_DESIGN.md) | データ・保存・セキュリティ |
-| [04_UI_AND_FLOW_DESIGN.md](./docs/design/04_UI_AND_FLOW_DESIGN.md) | 利用者操作と処理フロー |
+| [04_UI_AND_FLOW_DESIGN.md](./docs/design/04_UI_AND_FLOW_DESIGN.md) | User操作と処理フロー |
 | [05_ARCHITECTURE_DESIGN.md](./docs/design/05_ARCHITECTURE_DESIGN.md) | 構成と責務分離 |
 | [06_OPERATION_AND_HANDOFF.md](./docs/design/06_OPERATION_AND_HANDOFF.md) | 運用と実装引き継ぎ |
 

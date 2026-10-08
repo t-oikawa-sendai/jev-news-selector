@@ -3,7 +3,7 @@ Program Name: New Repository Setup Guide
 Language: Markdown
 Function: project-bootstrapを使う新規Repository作成の詳細手順を、Template経路とLEARNING経路に分けて案内する
 Created: 2026-09-24
-Last Updated: 2026-09-24
+Last Updated: 2026-10-08
 Author: Takashi Oikawa
 AI: Cursor Grok 4.7
 Memo: 新規作成のみを扱う。Existing RepositoryのMigrationとD-016 Step 15は対象外。Version 1.0は初回Approved版
@@ -18,7 +18,7 @@ Memo: 新規作成のみを扱う。Existing RepositoryのMigrationとD-016 Step
 | Version（バージョン） | 1.0 |
 | Status（ステータス） | Approved |
 | Created Date（作成日） | 2026-09-24 |
-| Last Updated（最終更新日） | 2026-09-24 |
+| Last Updated（最終更新日） | 2026-10-08 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | [README.md](../README.md) / [CONSTITUTION.md](../CONSTITUTION.md) / [AGENTS.md](../AGENTS.md) / [CURRENT.md](../project-notes/CURRENT.md) / [DOCUMENT_GOVERNANCE_STANDARD.md](./standards/DOCUMENT_GOVERNANCE_STANDARD.md) |
 
@@ -26,7 +26,7 @@ Memo: 新規作成のみを扱う。Existing RepositoryのMigrationとD-016 Step
 
 ## 1. Purpose（目的）
 
-本Guideは、`project-bootstrap` を使って新規Repositoryを作成する利用者向けの詳細手順書である。
+本Guideは、`project-bootstrap` を使って新規Repositoryを作成するUser向けの詳細手順書である。
 
 扱う範囲は次のとおりである。
 
@@ -43,7 +43,7 @@ Existing Repositoryへの移行手順は扱わない。D-016 Step 15 Existing Re
 
 ## 2. Before You Start（開始前確認）
 
-最初に、利用者が Repository の Purpose（目的）を確定する。
+最初に、Userが Repository の Purpose（目的）を確定する。
 
 正式値は次の5値である。1 Repository = 1 Primary Purpose とする。
 
@@ -55,7 +55,7 @@ LEARNING
 EXPERIMENT
 ```
 
-AI および installer は、Repository の内容から Purpose を推測してはならない。Purpose の確定権限は利用者にある。
+AI および installer は、Repository の内容から Purpose を推測してはならない。Purpose の確定権限はUserにある。
 
 確定後、`Purpose = LEARNING` か否かで経路を分ける。
 
@@ -120,7 +120,7 @@ Repository 名と公開範囲は、対象プロジェクトの要件に従う。
 
 作成した Repository を local へ clone する。
 
-clone URL と local directory は利用者環境に依存する。本Guideでは固定値を書かない。
+clone URL と local directory はUser環境に依存する。本Guideでは固定値を書かない。
 
 ### 4.3 Verify Git State（Git状態確認）
 
@@ -286,8 +286,8 @@ commit と push は自動では行わない。
 
 ```text
 差分レビュー
-→ 利用者確認
-→ 利用者の明示指示
+→ User確認
+→ Userの明示指示
 → commit
 → push
 ```
@@ -298,7 +298,7 @@ push 後は、GitHub Actions の `Validate Documents` の結果を確認する�
 
 ## 5. LEARNING Route（LEARNING経路）
 
-この経路は、利用者が Purpose を明示的に `LEARNING` と確定した場合のみ使用する。
+この経路は、Userが Purpose を明示的に `LEARNING` と確定した場合のみ使用する。
 
 ### 5.1 Create Repository（Repository作成）
 
@@ -333,7 +333,7 @@ Dry Run ではファイルを変更しない。表示された結果を確認す
 
 ### 5.4 Execute Installation（導入実行）
 
-Dry Run の確認後、利用者が実行を承認した場合のみ実実行する。
+Dry Run の確認後、Userが実行を承認した場合のみ実実行する。
 
 ```bash
 <solacom_main>/docs/standards/scripts/install-project-standards.sh \
@@ -384,8 +384,8 @@ Template Route と同じ順とする。
 
 ```text
 差分レビュー
-→ 利用者確認
-→ 利用者の明示指示
+→ User確認
+→ Userの明示指示
 → commit
 → push
 ```
@@ -424,7 +424,7 @@ CURRENT.md 初期化済み
 validator PASS
 git diff --check PASS
 差分レビュー済み
-利用者明示承認後 commit / push
+User明示承認後 commit / push
 GitHub Actions Validate Documents確認
 ```
 
@@ -442,7 +442,7 @@ READMEをinstallerが変更していない
 CURRENT.md 初期化済み
 不要なdocs/design等を必須扱いしていない
 差分レビュー済み
-利用者明示承認後 commit / push
+User明示承認後 commit / push
 ```
 
 ---

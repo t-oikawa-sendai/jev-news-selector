@@ -47,7 +47,7 @@
 ## 3. Out of Scope（対象外範囲）
 
 - データベース。本設計に含めない。採否は確定していない（[CURRENT.md](../../project-notes/CURRENT.md) Blockers）
-- 人間評価の入力操作。O-03（[04_UI_AND_FLOW_DESIGN.md](./04_UI_AND_FLOW_DESIGN.md)）で管理する
+- User評価の入力操作。O-03（[04_UI_AND_FLOW_DESIGN.md](./04_UI_AND_FLOW_DESIGN.md)）で管理する
 - 既存Markdownの検索方式と最終記事URLの正規化方式。O-04（[05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md)）で管理する
 - ニュース取得方式、入口の分野・検索語、検証用件数上限。[02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6 と [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) で管理する。本文書で保存量・保存パスを新たに選定しない
 - 自動選別条件。未決であり、本文書で定めない
@@ -56,7 +56,7 @@
 
 ## 4. Assumptions（前提条件）
 
-- Obsidian Vault は利用者のMac上に存在し、Git Repository の外に置く
+- Obsidian Vault はUserのMac上に存在し、Git Repository の外に置く
 - 処理日・公開日は Asia/Tokyo（JST）の日付として扱う（公開日の規則は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.4）
 - 最終記事URLをシステム上の一意キーとする（[02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) FR-014）
 
@@ -122,7 +122,7 @@ human_score:
 ---
 ```
 
-初期調整期間中に人間評価を記録した後の例:
+初期調整期間中にUser評価を記録した後の例:
 
 ```yaml
 human_decision: adopted
@@ -137,8 +137,8 @@ human_score: 4
 | `jev_score` | Jevの指導有用度Score。評価基準は0〜4の5段階。Jevが返した値を数値としてそのまま保存する。小数値を許容し、四捨五入・整数化・閾値処理を行わない |
 | `jev_audience` | Jevが判定した対象レベル（`beginner` / `intermediate` / `other`） |
 | `jev_category` | Jevが判定した記事カテゴリ。単一値。配列にしない（候補の分類体系は O-01） |
-| `human_decision` | 人間評価の採否（`adopted` / `rejected`）。未評価の場合は空 |
-| `human_score` | 人間評価のScore（0〜4の5段階）。未評価の場合は空 |
+| `human_decision` | User評価の採否（`adopted` / `rejected`）。未評価の場合は空 |
+| `human_score` | User評価のScore（0〜4の5段階）。未評価の場合は空 |
 
 - `published` と `processed` は別属性として保持する
 - `jev_*` と `human_*` は独立データとして保持し、互いに上書きしない
@@ -153,7 +153,7 @@ YAML frontmatter とは別に、本文には少なくとも次を読みやすい
 | 記事タイトル | 記事のタイトル |
 | 記事URL | 最終記事URL |
 | 公開日 | 記事公開日。`published` と同じ値を表示し、再処理時は最新の取得値へ更新する |
-| Jev判定の人間向け表示 | 指導有用度Score・対象レベル・記事カテゴリを、人が読める形で示す |
+| Jev判定のUser向け表示 | 指導有用度Score・対象レベル・記事カテゴリを、Userが読める形で示す |
 | 記事冒頭 | 記事本文の先頭部分。保存量は O-02 |
 
 - 同じ管理情報を無意味に何度も複製しない
@@ -224,10 +224,10 @@ AI時代の働き方_ab12cd.md
 
 | Role Name（ロール名） | Accessible Data / Permitted Operations（アクセス可能なデータ / 操作範囲） |
 |---|---|
-| 利用者（Repository管理者本人） | Botを任意の時刻に手動起動する。Obsidian上で記事Markdownを参照する。初期調整期間は人間評価を記録する（入力方法は O-03） |
+| User（Repository管理者本人） | Botを任意の時刻に手動起動する。Obsidian上で記事Markdownを参照する。初期調整期間はUser評価を記録する（入力方法は O-03） |
 | Bot | `Bot News/` 配下で、処理日フォルダと記事Markdownを作成し、登録済みの記事Markdownを再処理時の更新規則に従って更新する |
 
-利用者アカウントや複数利用者の権限区分は要求されていない。
+Userアカウントや複数Userの権限区分は要求されていない。
 
 ### 5.4 Personal and Confidential Data Policy（個人情報・機密データの取り扱い方針）
 
@@ -249,11 +249,11 @@ AI時代の働き方_ab12cd.md
 | Type（種別） | Design Specification（設計仕様） |
 |---|---|
 | Authentication（認証） | Jev利用時の認証情報は Git・設計書・README に含めない。保存方式は未決（実装段階で決定） |
-| Authorization（認可） | 本文書では対象外。理由: 単一利用者のローカル実行であり、利用者アカウント機能が要求されていないため |
+| Authorization（認可） | 本文書では対象外。理由: 単一Userのローカル実行であり、Userアカウント機能が要求されていないため |
 | Access Control（権限管理） | Botの書込み先は Obsidian Vault の `Bot News/` 配下とする。Vault の絶対パスは O-06 |
 | Communication（通信） | 記事取得、最終記事URLの取得、記事情報取得、Jev判定で外部と通信する。記事取得は GoogleニュースRSSである（採用し、検証する。URL・使用ライブラリは未確認）。入口の範囲は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6。記事情報の抽出方式は O-05。責務は [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) |
 | Data Storage（データ保存） | 記事Markdownを Obsidian Vault へ保存する。Vault を Git Repository 内に置かない。記事全文を保存しない |
-| Data Disposal（データ廃棄） | Jev Score を理由に記事を自動破棄しない。記録済みの人間評価は、日常入力の終了後も削除しない。過去データを一括削除しない |
+| Data Disposal（データ廃棄） | Jev Score を理由に記事を自動破棄しない。記録済みのUser評価は、日常入力の終了後も削除しない。過去データを一括削除しない |
 | Personal Data Protection（個人情報保護） | §5.4 に従う |
 
 ---

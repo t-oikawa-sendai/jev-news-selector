@@ -29,18 +29,18 @@
 
 本文書は、`jev-news-selector` が満たすべき機能要件・非機能要件を定義する正本である。データ・UI・アーキテクチャ・運用の各設計書の基準とする。
 
-読者は、利用者・設計担当・実装担当である。
+読者は、User・設計担当・実装担当である。
 
 ---
 
 ## 2. Scope（対象範囲）
 
-- 利用者によるBotの手動起動から、Obsidian への保存・更新までの初期版機能要件
+- UserによるBotの手動起動から、Obsidian への保存・更新までの初期版機能要件
 - 入口の分野・検索語と検証用件数上限
 - 公開日の扱いと対象日判定の規則
 - Jev判定（指導有用度Score・対象レベル・記事カテゴリ）の値域と保存値
 - 登録済み記事の再処理
-- 初期調整期間の人間評価に関する要件
+- 初期調整期間のUser評価に関する要件
 - 初期版の非機能要件
 
 ---
@@ -57,7 +57,7 @@
 
 ## 4. Assumptions（前提条件）
 
-- 利用者が任意の時刻にBotを手動起動する。定期自動起動は採用しない。記事の探索・選択・URLコピー・URL手入力は要求しない
+- Userが任意の時刻にBotを手動起動する。定期自動起動は採用しない。記事の探索・選択・URLコピー・URL手入力は要求しない
 - ニュース取得は GoogleニュースのRSS方式を採用し、検証する。採用は検証完了を意味しない
 - 入口の分野・検索語は暫定採用済みである（§5.1.6）
 - 日付の判定は Asia/Tokyo（JST）を基準とする
@@ -73,9 +73,9 @@ FR-001 を除き、いずれも初期版の成立に必要な機能である。�
 
 | ID | Feature Name（機能名） | Priority（優先度） | Details（詳細） |
 |---|---|---|---|
-| FR-001 | （失効）URL Input（URL入力） | ― | 2026-10-06 失効。人間によるURL手入力を前提とした要件であり、Userの明示により撤回された。本IDを別の仕様へ転用しない |
+| FR-001 | （失効）URL Input（URL入力） | ― | 2026-10-06 失効。UserによるURL手入力を前提とした要件であり、Userの明示により撤回された。本IDを別の仕様へ転用しない |
 | FR-002 | Final Article URL Retrieval（最終記事URL取得） | High | 処理対象記事について、最終的に到達したニュース提供元の記事URL（最終記事URL）を取得する。記事取得で得たURLがリダイレクト等を経る場合も、最終的に到達した記事URLを最終記事URLとする |
-| FR-003 | Article Information Retrieval（記事情報取得） | High | 記事タイトル・記事公開日・Jev判定と記事冒頭の保存に必要な本文を取得する。抽出方式は O-05（[05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md)）。O-05 の状態は OPEN である。利用者から暫定採用を指摘する発言がある。具体値は原記録未復元である。再選定が必要とは断定しない |
+| FR-003 | Article Information Retrieval（記事情報取得） | High | 記事タイトル・記事公開日・Jev判定と記事冒頭の保存に必要な本文を取得する。抽出方式は O-05（[05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md)）。O-05 の状態は OPEN である。Userから暫定採用を指摘する発言がある。具体値は原記録未復元である。再選定が必要とは断定しない |
 | FR-004 | Publication Date Determination（公開日の決定） | High | §5.1.4 の規則で、記事公開日を JST の日付として決定する |
 | FR-005 | Unidentifiable Publication Date（公開日を特定できない記事） | High | 公開日を取得できない、特定できない、または推測しなければ日付を決められない記事は処理対象外とする。Bot実行日・取得日・更新日・推測値などで補完しない |
 | FR-006 | Target Date Judgment（対象日判定） | High | 記事公開日が Bot実行日または Bot実行日の前日（いずれも JST）である場合のみ処理対象とする。登録済みの記事でも毎回判定する |
@@ -84,15 +84,15 @@ FR-001 を除き、いずれも初期版の成立に必要な機能である。�
 | FR-009 | Teaching Usefulness Score（指導有用度Score） | High | 評価基準は0〜4の5段階とする。定義は §5.1.1。Jevが返した小数値を含むScore値を、そのまま `jev_score` へ保存する。四捨五入・整数化・閾値処理を行わない |
 | FR-010 | Target Level（対象レベル） | High | `beginner` / `intermediate` / `other` の3値とする。定義は §5.1.2 |
 | FR-011 | Article Category（記事カテゴリ） | High | 1記事につき単一値とする。§5.1.3 の候補から Jev が1つを選択する。候補の分類体系は仮定である（O-01） |
-| FR-012 | Save All Target Articles（対象記事の全件保存） | High | 入口の処理対象に入り、対象日判定を通過した記事は全件保存する。Jev Score を理由に自動破棄しない。Score 0 の記事も保存する。検証用件数上限を超えた分は、その回の入口の処理対象に入らない（§5.1.6）。自動選別条件が利用者に承認され設計書へ反映されるまで、全件保存を継続する |
+| FR-012 | Save All Target Articles（対象記事の全件保存） | High | 入口の処理対象に入り、対象日判定を通過した記事は全件保存する。Jev Score を理由に自動破棄しない。Score 0 の記事も保存する。検証用件数上限を超えた分は、その回の入口の処理対象に入らない（§5.1.6）。自動選別条件がUserに承認され設計書へ反映されるまで、全件保存を継続する |
 | FR-013 | Markdown Storage（Markdown保存） | High | 1記事を1つのMarkdownファイルとして、Obsidian Vault の `Bot News/YYYY-MM-DD/` へ保存する。日付は記事公開日ではなく初回のBot処理日とする。判定・管理用データは YAML frontmatter に保存する。詳細は [03_DATA_AND_SECURITY_DESIGN.md](./03_DATA_AND_SECURITY_DESIGN.md) |
 | FR-014 | URL Uniqueness（URL一意性） | High | 最終記事URLをシステム上の一意キーとする。記事取得で得たURLが最終記事URLと異なる場合、そのURLを一意キーにしない。未登録の最終記事URLは新規Markdownを作成する。登録済みの最終記事URLは新しいファイルを作成せず、既存Markdownを更新する。別の日に再び処理対象となっても、新しい処理日フォルダへ移動・複製しない |
 | FR-015 | Reprocessing of Registered Article（登録済み記事の再処理） | High | 登録済みの最終記事URLの記事が処理対象となり、対象日判定を通過した場合は、記事情報を再取得し、Jevで再判定し、既存Markdownを更新する。`published` と本文の公開日表示は最新の取得値へ更新する。更新項目と保持項目は §5.1.5 |
 | FR-016 | Same Title with Different URL（同一タイトル・別URL） | High | 同一処理日フォルダ内に同じファイル名があり、最終記事URLが異なる場合は、別記事として別ファイルへ保存する。同じタイトルであることを理由に既存記事を上書きしない。命名規則は [03_DATA_AND_SECURITY_DESIGN.md](./03_DATA_AND_SECURITY_DESIGN.md) |
-| FR-017 | Human Evaluation（人間評価） | High | 初期調整期間のみ、記事ごとに `human_decision`（`adopted` / `rejected`）と `human_score`（0〜4）を記録できる。`human_score` の段階定義は §5.1.1 と同じ5段階とする。入力方法は O-03（[04_UI_AND_FLOW_DESIGN.md](./04_UI_AND_FLOW_DESIGN.md)） |
-| FR-018 | Separation of Jev and Human Evaluation（Jev評価と人間評価の分離） | High | Jev判定と人間評価を独立したデータとして保持する。Jev判定を人間評価で上書きしない。Jev再判定で人間評価を削除・初期化・上書きしない |
-| FR-019 | Processing without Human Evaluation（人間評価なしでの処理） | High | 人間評価が記録されていない記事でも、Jev判定と保存は成立する。人間評価の日常入力を終了した後も、対象日判定を通過した記事の全件保存を継続する |
-| FR-020 | Retention of Recorded Human Evaluation（記録済み人間評価の保持） | High | 人間評価の日常入力を終了した後も、記録済みの `human_decision` / `human_score` を削除しない。過去データを一括削除しない |
+| FR-017 | User Evaluation（User評価） | High | 初期調整期間のみ、記事ごとに `human_decision`（`adopted` / `rejected`）と `human_score`（0〜4）を記録できる。`human_score` の段階定義は §5.1.1 と同じ5段階とする。入力方法は O-03（[04_UI_AND_FLOW_DESIGN.md](./04_UI_AND_FLOW_DESIGN.md)） |
+| FR-018 | Separation of Jev and User Evaluation（Jev評価とUser評価の分離） | High | Jev判定とUser評価を独立したデータとして保持する。Jev判定をUser評価で上書きしない。Jev再判定でUser評価を削除・初期化・上書きしない |
+| FR-019 | Processing without User Evaluation（User評価なしでの処理） | High | User評価が記録されていない記事でも、Jev判定と保存は成立する。User評価の日常入力を終了した後も、対象日判定を通過した記事の全件保存を継続する |
+| FR-020 | Retention of Recorded User Evaluation（記録済みUser評価の保持） | High | User評価の日常入力を終了した後も、記録済みの `human_decision` / `human_score` を削除しない。過去データを一括削除しない |
 
 #### 5.1.1 Teaching Usefulness Score Definition（指導有用度Score定義）
 
@@ -209,12 +209,12 @@ FR-012 の全件保存は、この入口の処理対象に入り、対象日条�
 | Type（種別） | Requirement（要件内容） |
 |---|---|
 | Performance（性能） | 指定なし |
-| Availability（可用性） | 利用者が任意の時刻に手動起動したときに動作する。定期自動起動は採用しない。起動のUI・コマンド形式は未確認 |
+| Availability（可用性） | Userが任意の時刻に手動起動したときに動作する。定期自動起動は採用しない。起動のUI・コマンド形式は未確認 |
 | Security Requirement Level（セキュリティ要求レベル） | APIキー等の秘密情報を Git・設計書・README に含めない。記事全文を保存しない。設計仕様は [03_DATA_AND_SECURITY_DESIGN.md](./03_DATA_AND_SECURITY_DESIGN.md) |
 | Maintainability（保守性） | 初期調整期間の比較結果を基に、確定した段階定義等を保持したまま、Jevへの instructions と criteria を調整できること。この調整は仕様そのものの変更ではない。責務分離は [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) |
 | Other（その他） | タイムゾーンは Asia/Tokyo（JST）とする |
 
-初期調整で調整できるのは、§5.1.1 の段階定義、§5.1.2 の対象レベル、§5.1.3 のカテゴリ候補を保持した instructions と criteria である。0〜4の段階定義、対象レベルの3値、カテゴリの単一Choice、カテゴリ10候補の仮定は、この調整では変更しない。確定仕様の変更には、利用者の明示承認と [CONSTITUTION.md](../../CONSTITUTION.md)・[AGENTS.md](../../AGENTS.md) の既存変更手順が必要である。カテゴリ候補の追加・削除・統合・分割・改名は、利用者の明示承認なしに行わない。手順の詳細は [06_OPERATION_AND_HANDOFF.md](./06_OPERATION_AND_HANDOFF.md) §5.6 を参照する。
+初期調整で調整できるのは、§5.1.1 の段階定義、§5.1.2 の対象レベル、§5.1.3 のカテゴリ候補を保持した instructions と criteria である。0〜4の段階定義、対象レベルの3値、カテゴリの単一Choice、カテゴリ10候補の仮定は、この調整では変更しない。確定仕様の変更には、Userの明示承認と [CONSTITUTION.md](../../CONSTITUTION.md)・[AGENTS.md](../../AGENTS.md) の既存変更手順が必要である。カテゴリ候補の追加・削除・統合・分割・改名は、Userの明示承認なしに行わない。手順の詳細は [06_OPERATION_AND_HANDOFF.md](./06_OPERATION_AND_HANDOFF.md) §5.6 を参照する。
 
 ### 5.3 Screen List（画面一覧）
 
@@ -263,7 +263,7 @@ FR-012 の全件保存は、この入口の処理対象に入り、対象日条�
 
 | ID | Open Issue（未決事項） | Owner（担当者） | Due Date（期限） | Status（ステータス） |
 |---|---|---|---|---|
-| O-01 | 記事カテゴリ体系。§5.1.3 の10分類は仮定であり、実運用後に利用者が判断する。`jev_category` が単一値であることは確定している | Takashi Oikawa | 未定 | OPEN |
+| O-01 | 記事カテゴリ体系。§5.1.3 の10分類は仮定であり、実運用後にUserが判断する。`jev_category` が単一値であることは確定している | Takashi Oikawa | 未定 | OPEN |
 
 O-01〜O-06 に該当しない未確認事項（RSSのURL・使用ライブラリ、起動のUI・コマンド形式、再処理時のファイル名等）は ID未登録であり、[CURRENT.md](../../project-notes/CURRENT.md) の Blockers に記録する。入口の分野・検索語は暫定採用済みであり、具体一覧は原記録未復元である（§5.1.6）。
 
@@ -273,10 +273,10 @@ O-01〜O-06 に該当しない未確認事項（RSSのURL・使用ライブラ�
 
 - 公開日の補完は禁止である。タイムゾーン付きの日時は JST へ変換し、日付だけの場合は明示された日付を使う
 - 登録済みの記事でも対象日判定を毎回行う。対象外になった記事を、再び処理対象になったことだけを理由に更新しない
-- 再処理では `published` と本文の公開日表示を最新の取得値へ更新し、`processed`・初回処理日フォルダ・人間評価を保持する
+- 再処理では `published` と本文の公開日表示を最新の取得値へ更新し、`processed`・初回処理日フォルダ・User評価を保持する
 - `jev_score` はJevが返した値をそのまま保存する。四捨五入・整数化・閾値処理を追加しない
-- Jev判定と人間評価は独立している。再判定で人間評価を変えない
-- 記事カテゴリ体系は仮定である。実装でカテゴリ一覧を確定仕様として扱わず、変更は利用者の判断を待つ
-- 起動は利用者による任意時刻の手動起動である。起動のUI・コマンド形式、RSSのURL、使用ライブラリを AI判断で決めない
+- Jev判定とUser評価は独立している。再判定でUser評価を変えない
+- 記事カテゴリ体系は仮定である。実装でカテゴリ一覧を確定仕様として扱わず、変更はUserの判断を待つ
+- 起動はUserによる任意時刻の手動起動である。起動のUI・コマンド形式、RSSのURL、使用ライブラリを AI判断で決めない
 - ニュース取得は GoogleニュースのRSS方式を採用し、検証する。入口は §5.1.6 に従う。具体的な分野・検索語の一覧を補完しない
 - 確定した段階定義等を保持した instructions・criteria の調整と、仕様そのものの変更を区別する。カテゴリ候補を無断で追加・削除・統合・分割・改名しない

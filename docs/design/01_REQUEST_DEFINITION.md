@@ -27,16 +27,16 @@
 
 ## 1. Purpose（目的）
 
-本文書は、`jev-news-selector` を作る理由を定義する正本である。背景・問題・目的・利用者・対象範囲・対象外・期待効果・制約・完成条件を定め、要件定義以降の前提とする。
+本文書は、`jev-news-selector` を作る理由を定義する正本である。背景・問題・目的・User・対象範囲・対象外・期待効果・制約・完成条件を定め、要件定義以降の前提とする。
 
-読者は、利用者・設計担当・実装担当である。
+読者は、User・設計担当・実装担当である。
 
 ---
 
 ## 2. Scope（対象範囲）
 
-- 利用者が任意の時刻にBotを手動起動してから、処理対象記事の判定結果をObsidianへ保存・更新するまでの初期版Bot全体
-- 初期調整期間における人間評価の位置付け
+- Userが任意の時刻にBotを手動起動してから、処理対象記事の判定結果をObsidianへ保存・更新するまでの初期版Bot全体
+- 初期調整期間におけるUser評価の位置付け
 
 ニュース取得は GoogleニュースのRSS方式を採用し、検証する。採用は検証完了を意味しない。入口の分野・検索語と検証用件数上限は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6 を正とする。
 
@@ -50,26 +50,26 @@
 |---|---|
 | Messaging Service（メッセージサービス） | LINE Bot は使用しない |
 | External Storage（外部保存先） | Notion、Pocket は使用しない |
-| Scheduled Startup（定期自動起動） | 採用しない。起動は利用者による任意時刻の手動起動とする |
+| Scheduled Startup（定期自動起動） | 採用しない。起動はUserによる任意時刻の手動起動とする |
 | Automatic Discard（自動破棄） | Jev Score 等による記事の自動破棄・自動選別 |
-| Human Evaluation GUI（人間評価GUI） | 人間評価専用GUI |
+| User Evaluation GUI（User評価GUI） | User評価専用GUI |
 | Model Retraining（モデル再学習） | Jevモデルそのものの再学習 |
 | Deployment Form（提供形態） | Webアプリ化、クラウド常駐化 |
 | Text Generation（文章生成） | Jevによる記事全文の書き換え、授業用文章の生成 |
 
 将来必要になる可能性だけを理由に、上記を初期版へ追加しない。
 
-人間が記事を探す、選ぶ、URLをコピーする、ターミナルへURLを入力する操作は、Userの明示により撤回された（2026-10-06）。有効な仕様として扱わない。
+Userが記事を探す、選ぶ、URLをコピーする、ターミナルへURLを入力する操作は、Userの明示により撤回された（2026-10-06）。有効な仕様として扱わない。
 
-自動選別は、蓄積した評価データの分析後に利用者が条件を承認し、設計書を更新した後にのみ導入できる。手順は [06_OPERATION_AND_HANDOFF.md](./06_OPERATION_AND_HANDOFF.md) §5.6 を正とする。自動選別の未導入は、GoogleニュースRSSの検証が未完了であることとは別の事項である。
+自動選別は、蓄積した評価データの分析後にUserが条件を承認し、設計書を更新した後にのみ導入できる。手順は [06_OPERATION_AND_HANDOFF.md](./06_OPERATION_AND_HANDOFF.md) §5.6 を正とする。自動選別の未導入は、GoogleニュースRSSの検証が未完了であることとは別の事項である。
 
 ---
 
 ## 4. Assumptions（前提条件）
 
-- Botは MacBook Air M4（macOS）上で、利用者が任意の時刻に手動起動する。記事の探索・選択・URLコピー・URL手入力は要求しない
+- Botは MacBook Air M4（macOS）上で、Userが任意の時刻に手動起動する。記事の探索・選択・URLコピー・URL手入力は要求しない
 - ニュース取得は GoogleニュースのRSS方式を採用し、検証する。入口は分野・検索語で絞り、検証用の件数上限を併用する（[02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6）
-- Obsidian Vault は利用者のMac上に存在する。絶対パスは未決である（O-06。[03_DATA_AND_SECURITY_DESIGN.md](./03_DATA_AND_SECURITY_DESIGN.md) 参照）
+- Obsidian Vault はUserのMac上に存在する。絶対パスは未決である（O-06。[03_DATA_AND_SECURITY_DESIGN.md](./03_DATA_AND_SECURITY_DESIGN.md) 参照）
 - Jevを利用して記事を判定できる。呼出方式は [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) で管理する
 
 ---
@@ -96,28 +96,28 @@ Repository管理者は、IT初心者への対面指導を行っている。指�
 - 記事の判定・分類・蓄積をBotで行える
 - 判定結果が処理日単位でObsidianに蓄積され、指導で使う記事を参照しやすくなる
 - 公開日を基準に対象を絞るため、鮮度を確認できない記事が蓄積に混入しない
-- 初期調整期間の人間評価との比較により、Jevへの instructions と criteria を改善できる
+- 初期調整期間のUser評価との比較により、Jevへの instructions と criteria を改善できる
 
 ### 5.2 Stakeholders（ステークホルダー一覧と関心事）
 
 | Stakeholder（ステークホルダー） | Interests and Requests（関心事・要求） |
 |---|---|
-| Repository管理者（主利用者） | 記事の有用度・対象レベル・カテゴリを判定し、Obsidianへ蓄積したい |
+| Repository管理者（主User） | 記事の有用度・対象レベル・カテゴリを判定し、Obsidianへ蓄積したい |
 | 対面指導を受けるIT初心者（間接受益者） | 指導で記事を共有される。システムを直接操作しない |
 
-不特定多数の利用者は想定しない。
+不特定多数のUserは想定しない。
 
 ### 5.3 User Stories and Use Cases（ユーザーストーリー・ユースケース概要）
 
 | ID | User Story / Use Case（ユーザーストーリー / ユースケース） |
 |---|---|
 | US-001 | （失効）2026-10-06 失効。記事URLのターミナル手入力を前提としたユーザーストーリーであり、Userの明示により撤回された。本IDを別の仕様へ転用しない |
-| US-002 | 利用者として、Bot実行日または前日に公開された記事だけを処理し、公開日を特定できない記事や古い記事を除外したい |
-| US-003 | 利用者として、記事ごとに指導有用度・対象レベル・記事カテゴリを判定させたい |
-| US-004 | 利用者として、記事取得で得たURLが異なっても、最終記事URLが同じ記事は重複保存せず、1記事1ファイルで蓄積したい |
-| US-005 | 利用者として、登録済みの記事が対象期間内に再び処理対象となった場合は、最新の記事情報とJev判定で既存Markdownを更新したい |
-| US-006 | 利用者として、初期調整期間にJev判定と自分の評価を並べて記録し、差を確認したい。記録した評価はJev再判定で失われないようにしたい |
-| US-007 | 利用者として、Jev判定が安定したと自分で判断した後は、新しい記事への人間評価入力をやめたい。記録済みの人間評価は残したい |
+| US-002 | Userとして、Bot実行日または前日に公開された記事だけを処理し、公開日を特定できない記事や古い記事を除外したい |
+| US-003 | Userとして、記事ごとに指導有用度・対象レベル・記事カテゴリを判定させたい |
+| US-004 | Userとして、記事取得で得たURLが異なっても、最終記事URLが同じ記事は重複保存せず、1記事1ファイルで蓄積したい |
+| US-005 | Userとして、登録済みの記事が対象期間内に再び処理対象となった場合は、最新の記事情報とJev判定で既存Markdownを更新したい |
+| US-006 | Userとして、初期調整期間にJev判定と自分の評価を並べて記録し、差を確認したい。記録した評価はJev再判定で失われないようにしたい |
+| US-007 | Userとして、Jev判定が安定したと自分で判断した後は、新しい記事へのUser評価入力をやめたい。記録済みのUser評価は残したい |
 
 機能要件への対応は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.6 を正とする。
 
@@ -127,10 +127,10 @@ Repository管理者は、IT初心者への対面指導を行っている。指�
 |---|---|
 | Budget（予算） | 指定なし |
 | Deadline（期限） | 指定なし |
-| Technical（技術） | MacBook Air M4 / macOS 上でのローカル実行。言語は Python。起動は利用者による任意時刻の手動起動とし、定期自動起動は採用しない。起動のUI・コマンド形式は未確認。ニュース取得は GoogleニュースのRSS方式を採用し、検証する。入口の正本は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6。Webアプリ・クラウド常駐サービスとして構成しない |
+| Technical（技術） | MacBook Air M4 / macOS 上でのローカル実行。言語は Python。起動はUserによる任意時刻の手動起動とし、定期自動起動は採用しない。起動のUI・コマンド形式は未確認。ニュース取得は GoogleニュースのRSS方式を採用し、検証する。入口の正本は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6。Webアプリ・クラウド常駐サービスとして構成しない |
 | Regulatory（法規） | 本文書で追加する法規上の制約はない |
 | Data（データ） | 記事全文を保存しない。APIキー等の秘密情報をGit・設計書・READMEに含めない |
-| Users（利用者） | 主利用者は Repository管理者本人のみ |
+| Users | 主Userは Repository管理者本人のみ |
 
 ### 5.5 Success Criteria and Acceptance Conditions（成功基準・受け入れ条件）
 
@@ -141,7 +141,7 @@ Repository管理者は、IT初心者への対面指導を行っている。指�
 | SC-003 | 記事取得で得たURLが異なっても、最終記事URLが同じ記事は同一記事として扱われる |
 | SC-004 | 登録済みの最終記事URLの記事が対象日条件内で再び処理されると、新しいファイルは作られず、初回処理日フォルダの既存Markdownが再判定結果と最新の公開日で更新され、`processed` は初回処理日のまま保持される |
 | SC-005 | 同一処理日フォルダで同じタイトル・別の最終記事URLの記事を保存しても、既存ファイルが上書きされない |
-| SC-006 | 記録済みの人間評価が、Jev再判定の後も保持される |
+| SC-006 | 記録済みのUser評価が、Jev再判定の後も保持される |
 | SC-007 | 記事全文と秘密情報が、保存したMarkdownおよびGitに含まれない |
 
 テスト工程での検証基準は [06_OPERATION_AND_HANDOFF.md](./06_OPERATION_AND_HANDOFF.md) §5.3 に記載する。
@@ -161,8 +161,8 @@ Repository管理者は、IT初心者への対面指導を行っている。指�
 ## 7. Handoff to Detail Design（詳細設計への引き継ぎ）
 
 - Jevの役割は判定・分類に限る。文章生成の要求はない
-- 対象日判定を通過した記事を全件保存するのは、初期調整期間にJev判定と人間評価を比較するためである。自動選別条件が正式に決まるまで全件保存を続ける
-- 人間評価は恒久運用ではない。Jev判定が安定したと利用者が判断した時点で、新しい記事への日常入力を終了する
-- 起動は利用者による任意時刻の手動起動である。起動のUI・コマンド形式は未確認であり、AI判断で決めない
+- 対象日判定を通過した記事を全件保存するのは、初期調整期間にJev判定とUser評価を比較するためである。自動選別条件が正式に決まるまで全件保存を続ける
+- User評価は恒久運用ではない。Jev判定が安定したとUserが判断した時点で、新しい記事への日常入力を終了する
+- 起動はUserによる任意時刻の手動起動である。起動のUI・コマンド形式は未確認であり、AI判断で決めない
 - ニュース取得は GoogleニュースのRSS方式を採用し、検証する。入口の分野・検索語と検証用件数上限は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6 を正とする。具体的な分野・検索語の一覧は補完しない
 - 機能要件は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) を正とする
