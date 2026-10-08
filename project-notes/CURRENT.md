@@ -45,10 +45,12 @@ SDDに基づき Repository固有の設計文書を整備し、利用者レビュ
 - 2026-10-08、Solution Partnerが限定是正後の資料（ZIP `jev-news-selector-review-20261008-180248.zip`、差分基準 `98a6533f65064b76b0e304c7ae8ee03d0a5833fe`）を実差分で再レビューした（レビュー資料 `jev-news-selector-diagram-rereview-20261008.md` §8）。結果は前回の限定是正 PASS。04の記事情報取得の欠落、公開日条件の図示、SC-004との不整合の解消が確認された。設計全体・実装・commit・pushの承認ではない
 - 2026-10-08、同レビュー資料 §7 の追加承認に基づき、README §6 にデータの流れの概要図を配置した（詳細図の正本は05のまま。04・05への図リンクは維持）。04 §5.4 SC-001 に、新規記事であることの確認、今回の最新タイトル・必要本文の取得、使う公開日の適格性確認を明記した。README の概要図と04 Article Diagram は mermaid-cli 11.12.0 で描画を確認した。未commit・未push
 - 2026-10-08、Solution Partnerが追加整備後の資料（ZIP `jev-news-selector-review-20261008-182130.zip`、SHA-256 `835f9544865d52e4dcde39c915ceaa4732d24d3d6b77c93975f47179c4ec7a62`、差分基準 `98a6533f65064b76b0e304c7ae8ee03d0a5833fe`）を実差分で再レビューした（レビュー資料 `jev-news-selector-diagram-rereview-20261008.md` §9）。結果は PASS。README §6 の概要図と04 SC-001 の補足は承認範囲内であり、今回の決定事項反映・図整備・限定是正・追加整備について内容の追加修正は不要と判定された。設計全体の承認・実装開始許可・commit・pushの指示ではない
+- 2026-10-08、利用者の明示指示（「ここでPush 実際のGithubで確認する」。レビュー資料 `jev-news-selector-diagram-rereview-20261008.md` §11）に基づき、10文書を未承認Draftとして共有commit `3f6da3304c83d800509b7671f922631731b1c0c2`（`docs: share revised news selector design draft`）にまとめ、`main` へpushした。push直後、ローカルHEAD・origin/main・GitHub mainは同commitで一致し、作業ツリーはcleanだった。同commitの GitHub Actions `Validate Documents` は completed / success（[run 37767574862](https://github.com/t-oikawa-sendai/jev-news-selector/actions/runs/37767574862)）。設計承認・実装開始許可ではない
+- 2026-10-08、共有commit `3f6da33` のGitHub上の表示を、ブラウザで確認した。ルートREADME §6 の概要図は描画された。README §6 の4つの図リンク（入口の図・記事ごとの図・構成の図・データの流れ）と設計Index§2の目次リンクは、クリックで目的のファイルと見出しへ移った。04 Article Diagram と05 Data Flow Diagram は、文字の欠け・重なりがなく、矢印と経路を追えた。GitHubのMermaid描画は、日本語ラベルの折返し位置が mermaid-cli のPNGと異なる（例：「Markdown生 / 成・更新」）。文字は欠けていないため、修正していない。04 `#entry-diagram` と05 `#data-flow-diagram` では、クリック後にMermaid描画で高さが変わり、見出しが画面上端より上へずれた。遷移先のファイルと見出しは正しい。図・リンクの修正は行っていない
 
 ## Current（現在）
 
-- 設計は未承認であり、10文書は Version 0.1 / Draft である。ローカル差分は未commit・未pushである
+- 設計は未承認であり、10文書は Version 0.1 / Draft である。10文書は未承認Draftとして共有commit `3f6da33` でGitHub `main` へpush済みである。共有は設計承認ではない
 - 撤回事項：人間が記事を探す、選ぶ、URLをコピーする、ターミナルへURLを入力する仕様は、Userの明示により撤回済み。これに伴い US-001 / FR-001 / SCR-001 を失効とし、IDを別仕様へ転用しない
 - 2026-10-06、Userが次の3点を決定した（根拠：[Issue #2](https://github.com/t-oikawa-sendai/jev-news-selector/issues/2)）。設計全体の承認ではない
   - 起動：利用者が任意の時刻にBotを手動起動する。定期自動起動は採用しない。URL入力を伴わせない
@@ -64,6 +66,7 @@ SDDに基づき Repository固有の設計文書を整備し、利用者レビュ
 
 ## Next（次）
 
+- 設計担当によるGitHub上の最終稿と共有commit差分の確認。結果はレビュー資料と [Issue #3](https://github.com/t-oikawa-sendai/jev-news-selector/issues/3) へ記録される
 - 分野・検索語の具体一覧と、O-05 の具体方式の原記録の再取得。再取得まで本文へ補完しない
 - 設計担当による分類管理の整理。実装担当は新規 F/O/R-ID を採番しない
 - 設計承認後の実装引き継ぎ準備
@@ -72,8 +75,8 @@ SDDに基づき Repository固有の設計文書を整備し、利用者レビュ
 ## Blockers（阻害要因）
 
 - 設計全体は未承認である。形式検査の成功は設計承認を意味しない。再レビューと保留事項が残る間は設計承認・実装引き渡しへ進めない
-- commit・push は利用者または設計担当の明示指示を待つ。今回の内容レビュー PASS は commit・push の実行指示ではない
-- GitHub上のREADME Mermaid表示と、ブラウザでのリンククリックは未検証である。PNGでの描画確認と静的照合をその実検証として扱わない
+- 今後の commit・push も、利用者または設計担当の明示指示を待つ。今回のDraft共有は、利用者の明示指示による
+- 最新のCURRENT・CHANGELOG 2文書（185200 ZIP時点）の実差分について、設計担当の最終確認は未実施である。確認済みとして扱わない
 - GoogleニュースRSSは採用済みであり、検証は未完了である。RSSのURLと使用ライブラリは未確認である
 - 入口の分野・検索語は暫定採用済みである。具体一覧は原記録未復元である。未決へは戻していない
 - O-05 は OPEN である。具体的な抽出方式は原記録未復元である。解決済みにはしていない。再選定が必要とは断定しない
