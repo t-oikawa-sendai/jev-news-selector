@@ -3,7 +3,7 @@ Program Name: jev-news-selector CHANGELOG
 Language: Markdown
 Function: jev-news-selectorの変更履歴正本
 Created: 2026-10-06
-Last Updated: 2026-10-06
+Last Updated: 2026-10-08
 Author: Takashi Oikawa
 AI: Cursor
 Memo: Runtime /CHANGELOG.md。推測履歴を記載しない。Runtime側に CHANGELOG_TEMPLATE.md は作成しない
@@ -18,7 +18,7 @@ Memo: Runtime /CHANGELOG.md。推測履歴を記載しない。Runtime側に CHA
 | Version（バージョン） | 0.1 |
 | Status（ステータス） | Draft |
 | Created Date（作成日） | 2026-10-06 |
-| Last Updated（最終更新日） | 2026-10-06 |
+| Last Updated（最終更新日） | 2026-10-08 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | [CONSTITUTION.md](./CONSTITUTION.md) / [AGENTS.md](./AGENTS.md) / [README.md](./README.md) / [docs/design/README.md](./docs/design/README.md) |
 
@@ -58,6 +58,14 @@ Git 履歴は差分確認の補助として利用する。CHANGELOG の代替と
 
 | Version（バージョン） | Date（日付） | Document（文書） | Category（分類） | Changes（変更内容） | Author（作成者） |
 |---|---|---|---|---|---|
+| 0.1 | 2026-10-08 | `project-notes/CURRENT.md` / `CHANGELOG.md` | Changed | 状態記録を更新。追加整備後の再レビュー（182130 ZIP）が PASS となり、今回の設計書整備の内容レビューが完了したことを記録した。追加整備後の再レビューを現在の次作業と阻害要因から外し、過去の FAIL と再レビュー待ちの履歴は残した。GitHub上のREADME Mermaid表示とブラウザでのリンククリックが未検証であることを記録した。設計本文・図の変更なし。新規ID・分類変更なし。Version 0.1 / Draft のまま。設計承認・実装・commit・pushは未実施 | Takashi Oikawa |
+| 0.1 | 2026-10-08 | `README.md` / `docs/design/04_UI_AND_FLOW_DESIGN.md` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Changed | 限定是正後の再レビュー（前回の限定是正 PASS）で承認された追加整備を実施した。README §6 にデータの流れの概要図と短い説明を配置した。詳細なデータの流れは05、処理の分岐は04を正とし、既存の図リンクは残した。04 §5.4 SC-001 に、新規記事であることの確認、今回の最新タイトル・必要本文の取得、使う公開日の適格性確認を明記した。図と注記に合わせた補足であり、新しい処理要件ではない。CURRENTに再レビュー結果と追加整備の状態を記録した。新規ID・分類変更なし。Version 0.1 / Draft のまま。追加整備後の再レビュー・設計承認・実装・commit・pushは未実施 | Takashi Oikawa |
+| 0.1 | 2026-10-08 | `docs/design/04_UI_AND_FLOW_DESIGN.md` / `docs/design/README.md` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Fixed | 図整備後の再レビュー（FAIL）で承認された限定是正を実施した。04 §5.2 の図と注記、§5.4 SC-004、§7 に、02 FR-015 / §5.1.5・03の再処理更新規則・06 HO-005 にある記事情報の再取得を戻した。対象日判定の後に最終記事URLで既存Markdownを特定し、新規・登録済みとも今回の最新タイトル・必要本文を取得してJev判定に使う。使う公開日の条件は新規・登録済みの両方に適用する。再取得はHTTPの二重呼出しを要求しない。設計Index目次§2のリンクを、GitHubが生成した見出しIDへ合わせた。CURRENTに再レビュー結果と是正状態を記録した。新規ID・分類変更なし。Version 0.1 / Draft のまま。是正後再レビュー・設計承認・実装・commit・pushは未実施 | Takashi Oikawa |
+| 0.1 | 2026-10-08 | `README.md` / `docs/design/README.md` / `docs/design/04_UI_AND_FLOW_DESIGN.md` / `docs/design/05_ARCHITECTURE_DESIGN.md` / `docs/design/06_OPERATION_AND_HANDOFF.md` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Changed | 追加承認に基づき、処理フロー、構成、データの流れ、運用順序のASCII図をMermaid図へ置き換えた。詳細な処理図は04、構成とデータの流れは05に置き、READMEと設計Indexからはその図へリンクした。mermaid-cli 11.12.0 でPNGを生成し、描画を確認した。Version 0.1 / Draft のまま。再レビュー・設計承認・実装・commit・pushは未実施 | Takashi Oikawa |
+| 0.1 | 2026-10-08 | `README.md` / `CHANGELOG.md` / `project-notes/CURRENT.md` / `docs/design/` 7文書 | Changed | 承認済み変更予定に基づき整備した。GoogleニュースRSSの採用（検証は未完了）、入口の分野・検索語の暫定採用（具体一覧は原記録未復元。02 §5.1.6 で管理し、06と設計Indexから参照）、検証用上限（全検索語合計で1回最大50件、超過分はその回では無視）、04の再処理で使う公開日と対象日判定の一致、02・06における判定指示の調整と確定仕様の変更の境界、O-05のOPEN維持と暫定採用の指摘・原記録未復元の併記、CURRENTの状態区分を更新した。Version 0.1 / Draft のまま。設計承認・実装・commit・pushは未実施 | Takashi Oikawa |
+| 0.1 | 2026-10-06 | `project-notes/CURRENT.md` | Changed | 状態記録を更新。Solution Partnerによる共有commit `98a6533` の横断レビュー（設計FAIL）、Draft全文是正の実施状態（未commit・未push・是正後レビュー未実施）、Userの3点決定（Issue #2）、記事取得の手段・範囲等のID未登録の保留事項、後続課題（CURRENT.md記録運用の改善、未着手、Issue #1）を記録 | Takashi Oikawa |
+| 0.1 | 2026-10-06 | `docs/design/` 7文書 / `README.md` | Changed | Userの決定（Issue #2）を反映。起動を利用者による任意時刻の手動起動とし定期自動起動を採用しない、`jev_score` はJevが返した小数値をそのまま保存し丸めない、対象日判定を通過した再処理で `published` と本文の公開日表示を最新の取得値へ更新する | Takashi Oikawa |
+| 0.1 | 2026-10-06 | `docs/design/` 7文書 / `README.md` | Fixed | 撤回済みの人間による記事の探索・選択・URLコピー・URL手入力の前提を有効仕様から除去し、全文を再作成。US-001 / FR-001 / SCR-001 を失効とし転用禁止を明記。記事取得の手段・範囲、起動のUI・コマンド形式、再処理時のファイル名、ファイル名に使えない文字の扱い、処理失敗時の扱い、データベースの採否を未確認として CURRENT.md の Blockers へ参照。Version 0.1 / Draft、未承認のまま | Takashi Oikawa |
 | 0.1 | 2026-10-06 | `project-notes/CURRENT.md` | Changed | 状態記録を更新。Userによる設計全文の誤り指摘、設計未承認、是正未完了、GitHubでのレビュー共有を記録。「レビュー指摘の反映完了」を完了事項から除外 | Takashi Oikawa |
 | 0.1 | 2026-10-06 | `README.md` / `CHANGELOG.md` / `project-notes/CURRENT.md` / `docs/design/` 7文書 | Changed | Userの明示承認により、未承認Phase B DraftをGitHubでのレビュー共有のためcommit対象とした。設計承認・実装許可を意味しない | Takashi Oikawa |
 | 0.1 | 2026-10-06 | `docs/design/06_OPERATION_AND_HANDOFF.md` | Added | Repository固有の運用・実装引き継ぎ設計（OPS-001）を初期作成。初期調整期間、Jev安定判断後の運用、自動選別の導入手順を定義 | Takashi Oikawa |
