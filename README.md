@@ -3,7 +3,7 @@ Program Name: jev-news-selector README
 Language: Markdown
 Function: jev-news-selectorのRepository入口。目的・概要・主な機能・利用フロー・設計文書とCURRENT.mdへの入口を示す
 Created: 2026-10-06
-Last Updated: 2026-10-08
+Last Updated: 2026-10-23
 Author: Takashi Oikawa
 AI: Cursor
 Memo: 設計段階のRepository固有README。記載した機能は設計上の仕様であり未実装。変更履歴はCHANGELOG.md、現在地点はproject-notes/CURRENT.mdを正とする
@@ -18,7 +18,7 @@ Memo: 設計段階のRepository固有README。記載した機能は設計上の�
 | Version（バージョン） | 0.1 |
 | Status（ステータス） | Draft |
 | Created Date（作成日） | 2026-10-06 |
-| Last Updated（最終更新日） | 2026-10-08 |
+| Last Updated（最終更新日） | 2026-10-23 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | [CONSTITUTION.md](./CONSTITUTION.md) / [AGENTS.md](./AGENTS.md) / [project-notes/CURRENT.md](./project-notes/CURRENT.md) / [CHANGELOG.md](./CHANGELOG.md) / [docs/design/README.md](./docs/design/README.md) |
 
@@ -76,7 +76,7 @@ IT初心者への対面指導で使うニュース記事の収集・判定・分
 
 以下は設計上の機能であり、未実装である。
 
-- Userが任意の時刻にBotを手動起動する。定期自動起動は採用しない。記事の探索・選択・URLコピー・URL手入力は要求しない。起動のUI・コマンド形式は未確認
+- Userが任意の時刻にBotを手動起動する。定期自動起動は採用しない。記事の探索・選択・URLコピー・URL手入力は要求しない。CLIの具体的なコマンド・引数は未確認
 - GoogleニュースのRSSで記事を取得する。方式は採用済みであり、検証は未完了である。入口は分野・検索語で絞り、全検索語の合計で1回最大50件を検証用上限とする。正本は [02_REQUIREMENTS_DEFINITION.md](./docs/design/02_REQUIREMENTS_DEFINITION.md) §5.1.6
 - 処理対象記事について、最終的に到達したニュース提供元の記事URL（最終記事URL）を取得する
 - 記事のタイトル・公開日・判定に必要な本文を取得する
@@ -105,7 +105,7 @@ IT初心者への対面指導で使うニュース記事の収集・判定・分
 | OS | macOS |
 | Execution（実行形態） | ローカル実行 |
 | Language（言語） | Python |
-| Startup（起動） | Userによる任意時刻の手動起動（起動のUI・コマンド形式は未確認。記事の探索・選択・URLコピー・URL手入力は要求しない） |
+| Startup（起動） | Userによる任意時刻の手動起動（CLIの具体的なコマンド・引数は未確認。記事の探索・選択・URLコピー・URL手入力は要求しない） |
 
 Webアプリ、クラウド常駐サービスとしては構成しない。ニュース取得は GoogleニュースのRSS方式を採用し、検証する。RSSのURL・使用ライブラリは未確認である。記事情報の抽出方式は O-05（状態は OPEN。具体値は原記録未復元）であり、[05_ARCHITECTURE_DESIGN.md](./docs/design/05_ARCHITECTURE_DESIGN.md) で管理する。
 
@@ -129,7 +129,7 @@ flowchart TD
 - 対象条件を通過した記事について、Jevの判定結果と記事情報を保存・更新する流れの概要である。処理の分岐は [04_UI_AND_FLOW_DESIGN.md](./docs/design/04_UI_AND_FLOW_DESIGN.md#article-diagram) を参照する
 - User評価は初期調整期間の別入力であり、Jev結果を上書きしない
 - 詳細なデータの流れは [05_ARCHITECTURE_DESIGN.md](./docs/design/05_ARCHITECTURE_DESIGN.md#data-flow-diagram) を正とする
-- 本図は、RSSのURL・抽出方式・使用ライブラリ・本文保存量・起動UIを定めない。公開日による対象外、再処理時の保持項目、入口の50件上限は省略しており、要件から削除したものではない
+- 本図は、RSSのURL・抽出方式・使用ライブラリ・本文保存量・CLIの具体的なコマンド・引数を定めない。公開日による対象外、再処理時の保持項目、入口の50件上限は省略しており、要件から削除したものではない
 
 詳細図は次を開く。詳細図は04と05に置き、本書では繰り返さない。
 

@@ -7,7 +7,7 @@
 | Version（バージョン） | 0.1 |
 | Status（ステータス） | Draft |
 | Created Date（作成日） | 2026-10-06 |
-| Last Updated（最終更新日） | 2026-10-08 |
+| Last Updated（最終更新日） | 2026-10-23 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | README.md / 02_REQUIREMENTS_DEFINITION.md / 03_DATA_AND_SECURITY_DESIGN.md / 05_ARCHITECTURE_DESIGN.md / 06_OPERATION_AND_HANDOFF.md / ../../project-notes/CURRENT.md |
 
@@ -27,7 +27,7 @@
 
 ## 1. Purpose（目的）
 
-本文書は、`jev-news-selector` のUser操作と処理フローを定義する正本である。起動のUI・コマンド形式は未確認であり、本文書は画面を定義しない。
+本文書は、`jev-news-selector` のUser操作と処理フローを定義する正本である。CLIの具体的なコマンド・引数は未確認であり、本文書は画面を定義しない。
 
 読者は、User・設計担当・実装担当である。
 
@@ -47,7 +47,7 @@
 ## 3. Out of Scope（対象外範囲）
 
 - User評価専用GUI
-- 起動のUI・コマンド形式。未確認であり、本文書で定めない
+- CLIの具体的なコマンド・引数。未確認であり、本文書で定めない
 - 入口の分野・検索語の具体一覧、RSSのURL、使用ライブラリ。[02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6 を正とし、本文書で補完しない
 - 保存項目・ファイル名規則・更新規則の詳細。[03_DATA_AND_SECURITY_DESIGN.md](./03_DATA_AND_SECURITY_DESIGN.md) を正とする
 - 公開日の決定規則の詳細。[02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.4 を正とする
@@ -66,7 +66,7 @@
 
 ### 5.1 Screen List — Detail Definition（画面一覧・詳細定義）
 
-起動のUI・コマンド形式は未確認であり、本文書では有効な画面を定義しない。
+CLIの具体的なコマンド・引数は未確認であり、本文書では有効な画面を定義しない。
 
 | Screen ID（画面ID） | Screen Name（画面名） | Input Items（入力項目） | Output Items（出力項目） | Main Operations（主要操作） | Notes（備考） |
 |---|---|---|---|---|---|
@@ -76,7 +76,9 @@
 
 #### User Operation（User操作）
 
-Userは任意の時刻にBotを手動起動する。起動のUI・コマンド形式は未確認である。記事の探索・選択・URLコピー・URL手入力は要求しない。
+初期版の操作方式はCLIとする（2026-10-23 User指示）。Userが端末からPythonプログラムを手動実行する。記事URLの手入力は要求しない。コマンド名・引数・表示形式は後続で定義する。
+
+Userは任意の時刻にBotを手動起動する。CLIの具体的なコマンド・引数は未確認である。記事の探索・選択・URLコピー・URL手入力は要求しない。
 
 起動以外のUser操作は、初期調整期間のUser評価の記録（O-03）である。User評価のデータの位置は [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md#data-flow-diagram) を参照する。
 
@@ -131,7 +133,7 @@ flowchart TD
 
 ### 5.3 Wireframes and Layout Policy（主要画面のワイヤーフレーム・レイアウト方針）
 
-本文書では対象外。理由: 起動のUI・コマンド形式が未確認であり、本文書で画面を定義しないため。
+本文書では対象外。理由: CLIの具体的なコマンド・引数が未確認であり、本文書で画面を定義しないため。
 
 ### 5.4 Operation Flow and User Scenarios（操作フロー・ユーザーシナリオ）
 
@@ -158,14 +160,14 @@ flowchart TD
 
 | Target（対象） | Validation Rules（バリデーションルール） | Error Message / Display Policy（エラーメッセージ・表示方針） |
 |---|---|---|
-| 記事公開日 | 取得できない・特定できない・推測しなければ日付を決められない場合は対象外。Bot実行日・取得日・更新日・推測値で補完しない | 対象外として Jev判定・新規保存・既存Markdownの更新を行わない。Userへの表示方法・文言は、起動のUIが未確認のため本文書で定めない |
+| 記事公開日 | 取得できない・特定できない・推測しなければ日付を決められない場合は対象外。Bot実行日・取得日・更新日・推測値で補完しない | 対象外として Jev判定・新規保存・既存Markdownの更新を行わない。Userへの表示方法・文言は、CLIの表示仕様が未確定のため本文書で定めない |
 | 対象日 | 公開日（JST）が Bot実行日または前日でない場合は対象外。登録済みの記事も同じ | 同上 |
 
 取得・Jev判定・保存に失敗した場合の扱いは未確認であり、本文書で定めない（[CURRENT.md](../../project-notes/CURRENT.md) Blockers）。
 
 ### 5.6 Accessibility and Responsive Design Policy（アクセシビリティ・レスポンシブ対応方針）
 
-本文書では対象外。理由: 起動のUI・コマンド形式が未確認であり、本文書で画面を定義しないため。
+本文書では対象外。理由: CLIの具体的なコマンド・引数が未確認であり、本文書で画面を定義しないため。
 
 ---
 
@@ -181,13 +183,13 @@ flowchart TD
 |---|---|
 | 対象外記事を表示するメッセージ文言 | §5.5 |
 
-起動のUI・コマンド形式、RSSのURL・使用ライブラリ、処理失敗時の扱いは ID未登録の未確認事項であり、[CURRENT.md](../../project-notes/CURRENT.md) の Blockers に記録する。入口の分野・検索語は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6 で管理する。
+CLIの具体的なコマンド・引数、RSSのURL・使用ライブラリ、処理失敗時の扱いは ID未登録の未確認事項であり、[CURRENT.md](../../project-notes/CURRENT.md) の Blockers に記録する。入口の分野・検索語は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6 で管理する。
 
 ---
 
 ## 7. Handoff to Detail Design（詳細設計への引き継ぎ）
 
-- 起動はUserによる任意時刻の手動起動である。定期自動起動を実装しない。起動のUI・コマンド形式を AI判断で決めない
+- 起動はUserによる任意時刻の手動起動である。定期自動起動を実装しない。CLIの具体的なコマンド・引数を AI判断で決めない
 - 手動起動にURL入力を伴わせない。Userによる記事の探索・選択・URLコピー・URL入力を前提にしない
 - User評価専用GUIを実装しない
 - 対象日判定は登録済み判定より先に行う。対象外記事は Jev判定・新規保存・更新を行わない

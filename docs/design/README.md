@@ -7,7 +7,7 @@
 | Version（バージョン） | 0.1 |
 | Status（ステータス） | Draft |
 | Created Date（作成日） | 2026-10-06 |
-| Last Updated（最終更新日） | 2026-10-08 |
+| Last Updated（最終更新日） | 2026-10-23 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | [README.md](../../README.md)（リポジトリルート） / [CHANGELOG.md](../../CHANGELOG.md)（リポジトリルート） / [CURRENT.md](../../project-notes/CURRENT.md) / solacom_main/docs/standards/DESIGN_DOCUMENT_STANDARD.md |
 
@@ -50,7 +50,7 @@
 
 ## 3. Screen Overview（画面概要）
 
-本設計では有効な画面を定義しない。起動のUI・コマンド形式は未確認である。
+本設計では有効な画面を定義しない。CLIの具体的なコマンド・引数は未確認である。
 
 Userの操作は次の2つである。
 
@@ -96,6 +96,8 @@ Userの操作は次の2つである。
 - Jev判定とUser評価は独立したデータとして扱い、互いに上書きしない
 - 記事全文を保存しない。秘密情報をGitへ含めない
 
+2026-10-23に検討した将来の選別ロジック（Filter・重み・関係性）の草案は [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) §6に記録する。Jev仕様との照合前であり、初期版要件・全件保存・既存分類の変更ではない。
+
 ### 5.2 Open Issues Location（未決事項の所在）
 
 | ID | Open Issue（未決事項） | Owner Document（管理文書） |
@@ -107,7 +109,7 @@ Userの操作は次の2つである。
 | O-05 | 記事情報抽出方式 | [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) |
 | O-06 | Obsidian Vault絶対パス | [03_DATA_AND_SECURITY_DESIGN.md](./03_DATA_AND_SECURITY_DESIGN.md) |
 
-O-01〜O-06 に該当しない未確認事項（RSSのURL・使用ライブラリ、起動のUI・コマンド形式、再処理時のファイル名、ファイル名に使えない文字の扱い、処理失敗時の扱い、データベースの採否）は ID未登録であり、[CURRENT.md](../../project-notes/CURRENT.md) の Blockers に記録する。
+O-01〜O-06 に該当しない未確認事項（RSSのURL・使用ライブラリ、CLIの具体的なコマンド・引数、再処理時のファイル名、ファイル名に使えない文字の扱い、処理失敗時の扱い、データベースの採否）は ID未登録であり、[CURRENT.md](../../project-notes/CURRENT.md) の Blockers に記録する。
 
 入口の分野・検索語は暫定採用済みである。管理は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6 であり、[06_OPERATION_AND_HANDOFF.md](./06_OPERATION_AND_HANDOFF.md) からも参照する。具体一覧は原記録未復元のため、本書で補完しない。保存後の `jev_category` の候補とは別である。
 
@@ -121,7 +123,7 @@ O-05 の状態は OPEN のままとする。Userから記事情報抽出方式�
 |---|---|
 | SDD | Specification-Driven Development。設計文書を正として実装を進める開発方式 |
 | Jev | 本Botで記事の指導有用度・対象レベル・記事カテゴリを判定する判定担当。呼出方式は [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) で管理する |
-| 手動起動 | Userが任意の時刻にBotを起動すること。記事の探索・選択・URLコピー・URL手入力を伴わない。起動のUI・コマンド形式は未確認 |
+| 手動起動 | Userが任意の時刻にBotを起動すること。記事の探索・選択・URLコピー・URL手入力を伴わない。CLIの具体的なコマンド・引数は未確認 |
 | 入口 | 分野・検索語による絞り込みと、検証用件数上限の併用。正本は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6。具体的な分野・検索語は暫定採用済みであり、具体一覧は原記録未復元 |
 | 検証用件数上限 | 全検索語の合計で1回最大50件。検証用の上限であり、通常運用の上限へ自動適用しない。超過分はその回では無視する |
 | 最終記事URL（Final Article URL） | 処理対象記事について、最終的に到達したニュース提供元の記事URL。システム上の一意キー |

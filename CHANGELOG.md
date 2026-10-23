@@ -3,7 +3,7 @@ Program Name: jev-news-selector CHANGELOG
 Language: Markdown
 Function: jev-news-selectorの変更履歴正本
 Created: 2026-10-06
-Last Updated: 2026-10-08
+Last Updated: 2026-10-23
 Author: Takashi Oikawa
 AI: Cursor
 Memo: Runtime /CHANGELOG.md。推測履歴を記載しない。Runtime側に CHANGELOG_TEMPLATE.md は作成しない
@@ -18,7 +18,7 @@ Memo: Runtime /CHANGELOG.md。推測履歴を記載しない。Runtime側に CHA
 | Version（バージョン） | 0.1 |
 | Status（ステータス） | Draft |
 | Created Date（作成日） | 2026-10-06 |
-| Last Updated（最終更新日） | 2026-10-08 |
+| Last Updated（最終更新日） | 2026-10-23 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | [CONSTITUTION.md](./CONSTITUTION.md) / [AGENTS.md](./AGENTS.md) / [README.md](./README.md) / [docs/design/README.md](./docs/design/README.md) |
 
@@ -58,6 +58,10 @@ Git 履歴は差分確認の補助として利用する。CHANGELOG の代替と
 
 | Version（バージョン） | Date（日付） | Document（文書） | Category（分類） | Changes（変更内容） | Author（作成者） |
 |---|---|---|---|---|---|
+| 0.1 | 2026-10-23 | `docs/design/05_ARCHITECTURE_DESIGN.md` / `docs/design/06_OPERATION_AND_HANDOFF.md` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Changed | User確認を記録。初期はロジック動作優先、品質は段階改善、ルールは独立パーツと組み合わせで検証、251件はテスト用とする。固定回答のロジック確認と実API接続確認を分離し、初期に品質評価データの厳密化を要求しない。実装・試験・Commit・Push未実施 | Takashi Oikawa |
+| 0.1 | 2026-10-23 | `README.md` / `docs/design/` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Changed | User指示により初期版をCLI手動実行・最小機能テストと明記。05 §6へ最小テスト→一連の手動動作確認→自動化等の追加という段階を記録。関連する起動方式の未確認表記を具体的なコマンド・引数の未確定へ更新。全件保存は維持。実装・API実行・Commit・Pushなし | Takashi Oikawa |
+| 0.1 | 2026-10-23 | `docs/design/05_ARCHITECTURE_DESIGN.md` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Added | Python・Jev APIを使うプログラム概要設計案を05 §6へ追記。公式仕様の出典、Jev個別判断とPython集計の分担、初期版／将来質問、二重加点・関係性・確率の扱い、データと検証の案を記録。全件保存と既存値域は維持。未承認・実装なし・Commit／Pushなし | Takashi Oikawa |
+| 0.1 | 2026-10-23 | `docs/design/05_ARCHITECTURE_DESIGN.md` / `docs/design/06_OPERATION_AND_HANDOFF.md` / `docs/design/README.md` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Added | User指示により、ニュース選別の概要設計草案を05 §6へ記録。初期251件・77語句、Filter3段階、重み・関係性・例外・優先度・説明と調整を整理。Jev仕様照合前・未承認と明記し、全件保存・Score・カテゴリ・User評価・O-IDは維持。CURRENTの現在の保存状態をGitHub main `42ec023` の実測へ訂正。Commit・Push未実施 | Takashi Oikawa |
 | 0.1 | 2026-10-08 | `README.md` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Changed | Userの明示指示により、ルート README §1 第1段落を、取得、Jev判定、Markdown保存の順が分かる文章へ置き換えた。見出しと後続のGoogleニュースRSS・入口条件・公開日条件の段落は変更していない。仕様変更ではない。新規ID・分類変更なし。Version 0.1 / Draft を維持。この差分のレビュー・設計承認・実装・commit・pushは未実施。過去のPASSをこの判定へ転用しない | Takashi Oikawa |
 | 0.1 | 2026-10-08 | `README.md` / `CHANGELOG.md` / `project-notes/CURRENT.md` / `docs/design/` 7文書 / `AGENTS.md` / `CONSTITUTION.md` / `docs/NEW_REPOSITORY_SETUP_GUIDE.md` / `docs/standards/DOCUMENT_GOVERNANCE_STANDARD.md` | Changed | Userの明示指示により、Userを指す旧表示を `User` へ統一した。User評価、User Evaluation の表示名を合わせた。保存キー `human_decision` / `human_score`、仕様ID、O-01〜O-06 の状態、処理条件は変更していない。変わった見出しへの既存リンクはなく、目次の断片リンクは更新していない。CURRENTに実施状態を記録した。中央正本は変更していない。配布コピーの表記差分があり、中央正本との一致は未確認である。新規ID・分類変更なし。Version 0.1 / Draft を維持。表記統一後の実差分レビュー・設計承認・実装・commit・pushは未実施 | Takashi Oikawa |
 | 0.1 | 2026-10-08 | `project-notes/CURRENT.md` / `CHANGELOG.md` | Changed | 状態記録を更新。Userの明示指示により、10文書を未承認Draftとして共有commit `3f6da33` でGitHub `main` へpushしたことを記録した。同commitの Validate Documents は success だった。GitHub上で確認した結果も記録した。README §6 概要図の描画、図リンク4件と設計Index§2目次リンクのクリック遷移、04 Article Diagram と05 Data Flow Diagram の表示である。Mermaidの折返し位置の違いと、遷移後の見出し位置のずれも記録した。表示・リンクの修正なし。設計本文・図の変更なし。新規ID・分類変更なし。Version 0.1 / Draft のまま。設計承認・実装は未実施 | Takashi Oikawa |

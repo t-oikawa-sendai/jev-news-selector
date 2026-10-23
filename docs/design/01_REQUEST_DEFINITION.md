@@ -7,7 +7,7 @@
 | Version（バージョン） | 0.1 |
 | Status（ステータス） | Draft |
 | Created Date（作成日） | 2026-10-06 |
-| Last Updated（最終更新日） | 2026-10-08 |
+| Last Updated（最終更新日） | 2026-10-23 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | README.md / 02_REQUIREMENTS_DEFINITION.md / 06_OPERATION_AND_HANDOFF.md / ../../project-notes/CURRENT.md |
 
@@ -57,7 +57,7 @@
 | Deployment Form（提供形態） | Webアプリ化、クラウド常駐化 |
 | Text Generation（文章生成） | Jevによる記事全文の書き換え、授業用文章の生成 |
 
-将来必要になる可能性だけを理由に、上記を初期版へ追加しない。
+将来必要になる可能性だけを理由に、上記を初期版へ追加しない。2026-10-23のUser指示により、初期版はCLI（コマンドライン）から手動実行して最小機能をテストする。動作確認後に自動化等の後続機能へ進む。定期自動起動の初期版対象外は維持し、後続段階の方式・条件は別途設計する。
 
 Userが記事を探す、選ぶ、URLをコピーする、ターミナルへURLを入力する操作は、Userの明示により撤回された（2026-10-06）。有効な仕様として扱わない。
 
@@ -127,7 +127,7 @@ Repository管理者は、IT初心者への対面指導を行っている。指�
 |---|---|
 | Budget（予算） | 指定なし |
 | Deadline（期限） | 指定なし |
-| Technical（技術） | MacBook Air M4 / macOS 上でのローカル実行。言語は Python。起動はUserによる任意時刻の手動起動とし、定期自動起動は採用しない。起動のUI・コマンド形式は未確認。ニュース取得は GoogleニュースのRSS方式を採用し、検証する。入口の正本は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6。Webアプリ・クラウド常駐サービスとして構成しない |
+| Technical（技術） | MacBook Air M4 / macOS 上でのローカル実行。言語は Python。起動はUserによる任意時刻の手動起動とし、定期自動起動は採用しない。CLIの具体的なコマンド・引数は未確認。ニュース取得は GoogleニュースのRSS方式を採用し、検証する。入口の正本は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6。Webアプリ・クラウド常駐サービスとして構成しない |
 | Regulatory（法規） | 本文書で追加する法規上の制約はない |
 | Data（データ） | 記事全文を保存しない。APIキー等の秘密情報をGit・設計書・READMEに含めない |
 | Users | 主Userは Repository管理者本人のみ |
@@ -163,6 +163,6 @@ Repository管理者は、IT初心者への対面指導を行っている。指�
 - Jevの役割は判定・分類に限る。文章生成の要求はない
 - 対象日判定を通過した記事を全件保存するのは、初期調整期間にJev判定とUser評価を比較するためである。自動選別条件が正式に決まるまで全件保存を続ける
 - User評価は恒久運用ではない。Jev判定が安定したとUserが判断した時点で、新しい記事への日常入力を終了する
-- 起動はUserによる任意時刻の手動起動である。起動のUI・コマンド形式は未確認であり、AI判断で決めない
+- 起動はUserによる任意時刻の手動起動である。CLIの具体的なコマンド・引数は未確認であり、AI判断で決めない
 - ニュース取得は GoogleニュースのRSS方式を採用し、検証する。入口の分野・検索語と検証用件数上限は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6 を正とする。具体的な分野・検索語の一覧は補完しない
 - 機能要件は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) を正とする

@@ -7,7 +7,7 @@
 | Version（バージョン） | 0.1 |
 | Status（ステータス） | Draft |
 | Created Date（作成日） | 2026-10-06 |
-| Last Updated（最終更新日） | 2026-10-08 |
+| Last Updated（最終更新日） | 2026-10-23 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | README.md / 01_REQUEST_DEFINITION.md / 03_DATA_AND_SECURITY_DESIGN.md / 04_UI_AND_FLOW_DESIGN.md / 05_ARCHITECTURE_DESIGN.md / 06_OPERATION_AND_HANDOFF.md / ../../project-notes/CURRENT.md |
 
@@ -51,11 +51,13 @@
 
 自動選別条件は未決であり、本文書の要件に含めない。
 
-起動のUI・コマンド形式、RSSのURL、使用ライブラリは未確認であり、本文書で定めない。未確認事項は [CURRENT.md](../../project-notes/CURRENT.md) の Blockers に記録する。入口の分野・検索語と検証用件数上限は §5.1.6 で管理する。
+CLIの具体的なコマンド・引数、RSSのURL、使用ライブラリは未確認であり、本文書で定めない。未確認事項は [CURRENT.md](../../project-notes/CURRENT.md) の Blockers に記録する。入口の分野・検索語と検証用件数上限は §5.1.6 で管理する。
 
 ---
 
 ## 4. Assumptions（前提条件）
+
+- 初期版はCLI（コマンドライン）から手動実行し、Python・Jev APIの最小機能で動作を確認する。自動実行等は確認後の後続段階とする（2026-10-23 User指示）。具体的な段階構成は [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) §6を参照する。
 
 - Userが任意の時刻にBotを手動起動する。定期自動起動は採用しない。記事の探索・選択・URLコピー・URL手入力は要求しない
 - ニュース取得は GoogleニュースのRSS方式を採用し、検証する。採用は検証完了を意味しない
@@ -209,7 +211,7 @@ FR-012 の全件保存は、この入口の処理対象に入り、対象日条�
 | Type（種別） | Requirement（要件内容） |
 |---|---|
 | Performance（性能） | 指定なし |
-| Availability（可用性） | Userが任意の時刻に手動起動したときに動作する。定期自動起動は採用しない。起動のUI・コマンド形式は未確認 |
+| Availability（可用性） | Userが任意の時刻に手動起動したときに動作する。定期自動起動は採用しない。CLIの具体的なコマンド・引数は未確認 |
 | Security Requirement Level（セキュリティ要求レベル） | APIキー等の秘密情報を Git・設計書・README に含めない。記事全文を保存しない。設計仕様は [03_DATA_AND_SECURITY_DESIGN.md](./03_DATA_AND_SECURITY_DESIGN.md) |
 | Maintainability（保守性） | 初期調整期間の比較結果を基に、確定した段階定義等を保持したまま、Jevへの instructions と criteria を調整できること。この調整は仕様そのものの変更ではない。責務分離は [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) |
 | Other（その他） | タイムゾーンは Asia/Tokyo（JST）とする |
@@ -218,7 +220,7 @@ FR-012 の全件保存は、この入口の処理対象に入り、対象日条�
 
 ### 5.3 Screen List（画面一覧）
 
-起動のUI・コマンド形式は未確認であり、本文書では有効な画面を定義しない。
+CLIの具体的なコマンド・引数は未確認であり、本文書では有効な画面を定義しない。
 
 | Screen ID（画面ID） | Screen Name（画面名） | Purpose / Overview（利用目的・概要） |
 |---|---|---|
@@ -265,7 +267,7 @@ FR-012 の全件保存は、この入口の処理対象に入り、対象日条�
 |---|---|---|---|---|
 | O-01 | 記事カテゴリ体系。§5.1.3 の10分類は仮定であり、実運用後にUserが判断する。`jev_category` が単一値であることは確定している | Takashi Oikawa | 未定 | OPEN |
 
-O-01〜O-06 に該当しない未確認事項（RSSのURL・使用ライブラリ、起動のUI・コマンド形式、再処理時のファイル名等）は ID未登録であり、[CURRENT.md](../../project-notes/CURRENT.md) の Blockers に記録する。入口の分野・検索語は暫定採用済みであり、具体一覧は原記録未復元である（§5.1.6）。
+O-01〜O-06 に該当しない未確認事項（RSSのURL・使用ライブラリ、CLIの具体的なコマンド・引数、再処理時のファイル名等）は ID未登録であり、[CURRENT.md](../../project-notes/CURRENT.md) の Blockers に記録する。入口の分野・検索語は暫定採用済みであり、具体一覧は原記録未復元である（§5.1.6）。
 
 ---
 
@@ -277,6 +279,6 @@ O-01〜O-06 に該当しない未確認事項（RSSのURL・使用ライブラ�
 - `jev_score` はJevが返した値をそのまま保存する。四捨五入・整数化・閾値処理を追加しない
 - Jev判定とUser評価は独立している。再判定でUser評価を変えない
 - 記事カテゴリ体系は仮定である。実装でカテゴリ一覧を確定仕様として扱わず、変更はUserの判断を待つ
-- 起動はUserによる任意時刻の手動起動である。起動のUI・コマンド形式、RSSのURL、使用ライブラリを AI判断で決めない
+- 起動はUserによる任意時刻の手動起動である。CLIの具体的なコマンド・引数、RSSのURL、使用ライブラリを AI判断で決めない
 - ニュース取得は GoogleニュースのRSS方式を採用し、検証する。入口は §5.1.6 に従う。具体的な分野・検索語の一覧を補完しない
 - 確定した段階定義等を保持した instructions・criteria の調整と、仕様そのものの変更を区別する。カテゴリ候補を無断で追加・削除・統合・分割・改名しない

@@ -7,7 +7,7 @@
 | Version（バージョン） | 0.1 |
 | Status（ステータス） | Draft |
 | Created Date（作成日） | 2026-10-06 |
-| Last Updated（最終更新日） | 2026-10-08 |
+| Last Updated（最終更新日） | 2026-10-23 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | README.md / 01_REQUEST_DEFINITION.md / 02_REQUIREMENTS_DEFINITION.md / 03_DATA_AND_SECURITY_DESIGN.md / 05_ARCHITECTURE_DESIGN.md / ../../project-notes/CURRENT.md |
 
@@ -69,7 +69,7 @@
 
 | ID | Handoff Item（引き継ぎ事項） | Details / Background（詳細・背景） |
 |---|---|---|
-| HO-001 | 未決事項の扱い | O-01〜O-06 は担当文書で管理する（所在は [README.md](./README.md) §5.2）。実装前に決定が必要な範囲はUserが判断する。入口の分野・検索語は暫定採用済みであり、[02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6 で管理する。具体一覧は原記録未復元のため補完しない。O-01〜O-06 に該当しない未確認事項（RSSのURL・使用ライブラリ、起動のUI・コマンド形式、再処理時のファイル名、ファイル名に使えない文字の扱い、処理失敗時の扱い、データベースの採否）は ID未登録であり、[CURRENT.md](../../project-notes/CURRENT.md) の Blockers に記録する |
+| HO-001 | 未決事項の扱い | O-01〜O-06 は担当文書で管理する（所在は [README.md](./README.md) §5.2）。実装前に決定が必要な範囲はUserが判断する。入口の分野・検索語は暫定採用済みであり、[02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6 で管理する。具体一覧は原記録未復元のため補完しない。O-01〜O-06 に該当しない未確認事項（RSSのURL・使用ライブラリ、CLIの具体的なコマンド・引数、再処理時のファイル名、ファイル名に使えない文字の扱い、処理失敗時の扱い、データベースの採否）は ID未登録であり、[CURRENT.md](../../project-notes/CURRENT.md) の Blockers に記録する |
 | HO-002 | 実装段階で決定する事項 | 最終記事URLの具体的正規化方式（O-04）、記事抽出Pythonライブラリ（O-05。状態は OPEN。Userから暫定採用を指摘する発言があり、具体値は原記録未復元である。再選定が必要とは断定しない）、Jevへ渡す本文量・Jev SDK / API 具体方式（[05](./05_ARCHITECTURE_DESIGN.md) §6）、APIキー保存方式・URL由来短縮識別子の生成方式（[03](./03_DATA_AND_SECURITY_DESIGN.md) §6）、対象外記事のメッセージ文言（[04](./04_UI_AND_FLOW_DESIGN.md) §6）。いずれも AI判断で確定しない |
 | HO-003 | 公開日の補完禁止 | 公開日を特定できない記事は対象外とする。鮮度・信頼性を確認できないためである。タイムゾーン付き日時は Asia/Tokyo へ変換し、日付だけなら明示された日付を使う |
 | HO-004 | 最終記事URLによる一意管理 | 記事取得で得たURLが最終記事URLと異なる場合も、最終記事URLで重複を判定する |
@@ -81,7 +81,7 @@
 - 設計文書が `Approved` になる前に実装を開始しない
 - 承認済み作業指示の範囲だけを実装する
 - 初期版対象外（[01_REQUEST_DEFINITION.md](./01_REQUEST_DEFINITION.md) §3）の機能を追加しない
-- 起動はUserによる任意時刻の手動起動とする。定期自動起動を実装しない。起動のUI・コマンド形式、RSSのURL、使用ライブラリを AI判断で決めない。ニュース取得は GoogleニュースのRSS方式を採用し、検証する。入口は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6 に従う
+- 起動はUserによる任意時刻の手動起動とする。定期自動起動を実装しない。CLIの具体的なコマンド・引数、RSSのURL、使用ライブラリを AI判断で決めない。ニュース取得は GoogleニュースのRSS方式を採用し、検証する。入口は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6 に従う
 - Userによる記事の探索・選択・URLコピー・URL入力を前提とした処理を実装しない
 - `jev_score` はJevが返した値をそのまま保存する。四捨五入・整数化・閾値処理を追加しない
 - 自動選別・自動破棄を実装しない。Jevが安定したと判断された後も、§5.6 の手順を経るまで導入しない
@@ -103,7 +103,11 @@
 
 本表は試験観点を定めるものであり、ログ・監視等の機能追加を要求しない。
 
+初期CLIテストは選別品質ではなく、定義したロジックどおりの動作を確認する。ルールのパーツ単独→組み合わせ→実API接続の確認を分離し、固定回答を用いる確認と実APIによる確認の両方を行う。251件はテスト用であり、品質の正解データとは扱わない。方針の正本は [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) §6「初期検証の方針とルールのパーツ分割」。
+
 ### 5.4 Deployment and Release Overview（デプロイ・リリース手順概要）
+
+2026-10-23のUser方針により、最初はCLIで最小機能のテストを行い、一連の動作を確認した後に自動化等を追加する。段階構成は [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) §6を正とする。初期版に自動実行を含めない。
 
 サーバーへのデプロイはない。GitHub 正本の内容をUserのMac上でローカル実行する。
 
@@ -178,6 +182,8 @@ flowchart TD
 
 - 自動選別条件は現時点で未決である。Score閾値・confidence・カテゴリ・対象レベル等をどのように組み合わせるかは確定していない
 - 自動選別条件は、蓄積されたUser評価を確認した後にUserが決定する。本設計書で AI判断により決定しない
+
+2026-10-23の検討案は [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) §6「ニュース選別ロジックの概要設計案」に記録する。3段階のFilter、重み・関係性評価、例外・優先度は未承認であり、本節の導入手順と全件保存方針を変更しない。
 
 #### Repository Operation（Repository運用）
 
