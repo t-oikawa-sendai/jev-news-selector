@@ -1,6 +1,8 @@
 # Design Documents Index（設計書一覧）
 
-<!-- Document Info（文書情報） -->
+<details>
+<summary>Document Info（文書情報）</summary>
+
 | Item（項目） | Value（値） |
 |---|---|
 | Document ID（文書ID） | README-001 |
@@ -10,6 +12,8 @@
 | Last Updated（最終更新日） | 2026-10-23 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | [README.md](../../README.md)（リポジトリルート） / [CHANGELOG.md](../../CHANGELOG.md)（リポジトリルート） / [CURRENT.md](../../project-notes/CURRENT.md) / solacom_main/docs/standards/DESIGN_DOCUMENT_STANDARD.md |
+
+</details>
 
 > 詳細な変更履歴はリポジトリルートの [CHANGELOG.md](../../CHANGELOG.md) を参照。
 

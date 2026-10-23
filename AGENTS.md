@@ -8,7 +8,9 @@ LOCAL_EDIT_POLICY: PROHIBITED
 
 # Agent Operating Procedures（エージェント運用手順）
 
-<!-- Document Info（文書情報） -->
+<details>
+<summary>Document Info（文書情報）</summary>
+
 | Item（項目） | Value（値） |
 |---|---|
 | Document ID（文書ID） | SCAO-AI-GOVERNANCE-AGENTS |
@@ -18,6 +20,8 @@ LOCAL_EDIT_POLICY: PROHIBITED
 | Last Updated（最終更新日） | 2026-10-08 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | CONSTITUTION.md / ../DOCUMENT_GOVERNANCE_STANDARD.md / project-notes/CURRENT_TEMPLATE.md |
+
+</details>
 
 ## Repository Purpose（リポジトリ目的）
 

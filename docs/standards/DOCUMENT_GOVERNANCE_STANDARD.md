@@ -11,7 +11,9 @@ Memo: 設計文書固有規則はDESIGN_DOCUMENT_STANDARD.mdを正とする。Us
 
 # Document Governance Standard（文書ガバナンス標準）
 
-<!-- Document Info（文書情報） -->
+<details>
+<summary>Document Info（文書情報）</summary>
+
 | Item（項目） | Value（値） |
 |---|---|
 | Document ID（文書ID） | STD-DOC-GOVERNANCE-001 |
@@ -22,6 +24,8 @@ Memo: 設計文書固有規則はDESIGN_DOCUMENT_STANDARD.mdを正とする。Us
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | `/CONSTITUTION.md` / `/AGENTS.md` / `solacom_main/docs/standards/DESIGN_DOCUMENT_STANDARD.md` / `solacom_main/docs/standards/DOCUMENT_HISTORY_RULE.md` / `solacom_main/docs/standards/SPEC_VERSION_HEADER_SPEC.md` |
 | Source Location（正本配置） | `solacom_main/docs/standards/DOCUMENT_GOVERNANCE_STANDARD.md` |
+
+</details>
 
 ---
 

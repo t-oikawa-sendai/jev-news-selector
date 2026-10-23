@@ -11,7 +11,9 @@ Memo: 新規作成のみを扱う。Existing RepositoryのMigrationとD-016 Step
 
 # New Repository Setup Guide（新規Repository作成手順）
 
-<!-- Document Info（文書情報） -->
+<details>
+<summary>Document Info（文書情報）</summary>
+
 | Item（項目） | Value（値） |
 |---|---|
 | Document ID（文書ID） | PB-SETUP-001 |
@@ -21,6 +23,8 @@ Memo: 新規作成のみを扱う。Existing RepositoryのMigrationとD-016 Step
 | Last Updated（最終更新日） | 2026-10-08 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | [README.md](../README.md) / [CONSTITUTION.md](../CONSTITUTION.md) / [AGENTS.md](../AGENTS.md) / [CURRENT.md](../project-notes/CURRENT.md) / [DOCUMENT_GOVERNANCE_STANDARD.md](./standards/DOCUMENT_GOVERNANCE_STANDARD.md) |
+
+</details>
 
 ---
 

@@ -11,7 +11,9 @@ Memo: Canonical Sourceは solacom_main の project-notes/CURRENT_TEMPLATE.md。R
 
 # CURRENT
 
-<!-- Document Info（文書情報） -->
+<details>
+<summary>Document Info（文書情報）</summary>
+
 | Item（項目） | Value（値） |
 |---|---|
 | Document ID（文書ID） | JNS-CURRENT-001 |
@@ -22,6 +24,8 @@ Memo: Canonical Sourceは solacom_main の project-notes/CURRENT_TEMPLATE.md。R
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | ../README.md / ../CONSTITUTION.md / ../AGENTS.md / ../CHANGELOG.md / ../docs/design/README.md |
 
+</details>
+
 ---
 
 ## Purpose（目的）
@@ -31,6 +35,8 @@ Repository Purpose: `DEVELOPMENT`
 SDDに基づき Repository固有の設計文書を整備し、Userレビューと承認を経て実装引き継ぎへ進む。
 
 ## Completed（完了）
+
+- 2026-10-23、User指示により、冒頭に文書情報表を持つ13文書を折りたたみ表示へ変更した。表の項目・値は保持し、中央管理コピーも今回の明示指示に基づく表示変更だけを行った。CONSTITUTIONは対象表がないため変更なし。Commit・Pushは未実施。
 
 - 2026-10-23、User承認に基づき、READMEに記事選別の負担とJevの採用理由・比較検証目的を追記し、要求定義01 §5.1と整合した。READMEは概要に絞り、背景・目的の詳細は要求定義01 §5.1、機能・条件の詳細は要件定義02を参照する構成にした。READMEの目次・章番号を更新した。文書修正のみで、実装・比較試験・Commit・Pushは未実施。
 
@@ -61,7 +67,9 @@ SDDに基づき Repository固有の設計文書を整備し、Userレビュー�
 
 ## Current（現在）
 
-- Jevが汎用LLMより一貫した判定を行えるかを、実装を通じて検証する。優位性は未検証。目的の正本は01 §5.1。初期はロジック動作確認を優先し、比較は後続段階とする。今回のREADME・要求定義・状態記録・履歴の修正は未Commit・未Pushであり、以前のPush指示の対象とは区別する。
+- 文書情報表の折りたたみ変更はUserのCommit・Push指示に基づき本コミットへ記録する。GitHub反映結果は完了報告で確認する。README背景・Jev比較検証目的の変更はd1d24f5でPush済み（User提示の実行結果）。
+
+- Jevが汎用LLMより一貫した判定を行えるかを、実装を通じて検証する。優位性は未検証。目的の正本は01 §5.1。初期はロジック動作確認を優先し、比較は後続段階とする。README・要求定義・状態記録・履歴の修正はd1d24f5でPush済み（User提示の実行結果）。
 
 - 初期CLIテストの目的はロジックどおりの動作確認。選別品質は徐々に改善する。ルールはパーツ単独と組み合わせで検証し、251件はテスト用として扱う。品質評価用データの厳密化を初期作業の前提にしない。
 

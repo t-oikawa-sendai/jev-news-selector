@@ -11,7 +11,9 @@ Memo: 設計段階のRepository固有README。記載した機能は設計上の�
 
 # jev-news-selector
 
-<!-- Document Info（文書情報） -->
+<details>
+<summary>Document Info（文書情報）</summary>
+
 | Item（項目） | Value（値） |
 |---|---|
 | Document ID（文書ID） | JNS-README-001 |
@@ -21,6 +23,8 @@ Memo: 設計段階のRepository固有README。記載した機能は設計上の�
 | Last Updated（最終更新日） | 2026-10-23 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | [CONSTITUTION.md](./CONSTITUTION.md) / [AGENTS.md](./AGENTS.md) / [project-notes/CURRENT.md](./project-notes/CURRENT.md) / [CHANGELOG.md](./CHANGELOG.md) / [docs/design/README.md](./docs/design/README.md) |
+
+</details>
 
 > **Current Status（現在の状態）**
 >
