@@ -62,6 +62,7 @@ Git 履歴は差分確認の補助として利用する。CHANGELOG の代替と
 
 | Version（バージョン） | Date（日付） | Document（文書） | Category（分類） | Changes（変更内容） | Author（作成者） |
 |---|---|---|---|---|---|
+| 0.1 | 2026-10-23 | `docs/design/05_ARCHITECTURE_DESIGN.md` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Added | User指示により判断特化型AIの比較候補・利用手順・確認日付き料金と概算・公式出典を記録。JevとMicrosoftの基本API構成と接続・認証・モデル指定の差異、設定切替による共用案、実接続未検証の範囲を明記。採用変更・実装・比較試験・Commit・Pushなし | Takashi Oikawa |
 | 0.1 | 2026-10-23 | 冒頭に文書情報表を持つ13文書 | Changed | User指示により文書情報表をdetails・summaryで折りたたみ表示へ変更。管理項目・値は維持。CURRENTに状態を記録。Commit・Push未実施 | Takashi Oikawa |
 | 0.1 | 2026-10-23 | `README.md` / `docs/design/01_REQUEST_DEFINITION.md` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Changed | User承認により記事選別の負担、Jev採用理由、汎用LLMより一貫した判定ができるかを検証する目的を記録。優位性は未検証とし、初期動作確認後に同一記事・基準で比較する。READMEは概要、要求定義01は背景・目的の詳細、要件定義02は機能・条件の詳細という分担を維持。READMEの目次・章番号を更新。実装・比較試験・Commit・Pushは未実施 | Takashi Oikawa |
 | 0.1 | 2026-10-23 | `docs/design/05_ARCHITECTURE_DESIGN.md` / `docs/design/06_OPERATION_AND_HANDOFF.md` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Changed | User確認を記録。初期はロジック動作優先、品質は段階改善、ルールは独立パーツと組み合わせで検証、251件はテスト用とする。固定回答のロジック確認と実API接続確認を分離し、初期に品質評価データの厳密化を要求しない。実装・試験・Commit・Push未実施 | Takashi Oikawa |

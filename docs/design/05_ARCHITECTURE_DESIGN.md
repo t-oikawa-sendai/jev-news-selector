@@ -290,6 +290,40 @@ Userの「PythonをベースにJavAPIを使用したPRGの概要設計を開始�
 
 公式資料に書かれた性能・確率は本Botの品質保証ではない。SDK版、モデル識別子、質問数・入力長の上限、タイムアウト・再試行・料金は実装前に再確認する。既存の「Jevの具体方式は未決」は本案だけでは確定へ変更しない。
 
+#### 判断特化型AIの比較候補・利用手順・料金（2026-10-23確認）
+
+以下は調査記録と設計案であり、Jevからの採用変更や初期版への比較機能追加を決定するものではない。実API接続・モデル間の比較試験は未実施。
+
+| モデル・提供元 | API利用開始の手順 | 入力100万トークン当たりの公表料金（USD） | 公式資料 |
+|---|---|---|---|
+| Jev 1.14／1.13・TypeSafe | TypeSafe Consoleへ登録・ログイン→APIキー取得→Python用typesafe-sdk等から呼出し | $0.042、出力無料 | [利用手順](https://docs.typesafe.ai/introduction/quickstart)、[モデル・料金](https://docs.typesafe.ai/models) |
+| Microsoft-Decision-1・Microsoft | 支払い方法付きAzure契約→Foundryプロジェクト作成→モデル配置→接続先・配置名・認証情報取得→API呼出し | $0.042、出力無料 | [利用手順](https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/use-foundry-models-microsoft-decision)、[料金公表](https://commandline.microsoft.com/microsoft-decision-1-model-foundry/) |
+| Clef・Cloudflare | Cloudflare登録→Workers AIのUse REST API→APIトークン・Account ID取得→ClefのAPI呼出し | $0.240、出力無料 | [登録・認証](https://developers.cloudflare.com/workers-ai/get-started/rest-api/)、[Clef](https://developers.cloudflare.com/workers-ai/models/clef/)、[料金](https://developers.cloudflare.com/workers-ai/platform/pricing/) |
+| Clef-flash・Cloudflare | 上記Cloudflareの手順で小型版モデルを指定 | $0.038、出力無料 | [料金](https://developers.cloudflare.com/workers-ai/platform/pricing/) |
+
+トークンはAIが文章を処理する分割単位であり、文字数とは異なる。記事と質問を合わせて1記事5,000入力トークン、1,000記事・各1回の処理を仮定すると、入力合計500万トークンで、JevとMicrosoft-Decision-1は各$0.21、Clefは$1.20、Clef-flashは$0.19となる。無料枠適用前のモデル処理料金の概算であり、税・為替・前払い条件・周辺サービス費用を含まない。実際の使用量や再呼出し回数で変わる。
+
+Cloudflare Workers AIには1日10,000 Neuronsの無料枠がある。Neuronsは同社独自の処理量単位で、モデルごとにトークンからの換算が異なる。無料枠超過には有料プランが必要。料金・利用条件は利用開始時に公式資料で再確認する。
+
+#### JevとMicrosoft-Decision-1のAPI共用条件（2026-10-23確認）
+
+User提示の「APIキーと接続先を変えれば兼用できる」という情報について、両社の公式API仕様を照合した。基本の送受信構成は共通するが、直接接続ではモデル指定と認証ヘッダーの切り替えも必要である。
+
+| 項目 | Jev直接利用 | Microsoft Foundry |
+|---|---|---|
+| 接続先 | `https://api.typesafe.ai/v1/systemone` | `<Foundryリソース接続先>/providers/microsoft/v1/systemone` |
+| APIキー認証 | `Authorization: Bearer <APIキー>` | `api-key: <APIキー>`。Entra ID認証も選択可能 |
+| `model` | Jevのモデル名・識別子 | Azureで設定した配置名 |
+| 基本入力 | `model`・`state`・`questions` | 同じ基本構成 |
+| 基本質問形式 | `noul`・`choice`・`score` | 同じ3形式 |
+| 基本出力 | 質問名に対応した`answers`、`model`、`usage` | 同じ基本構成 |
+
+出典：[TypeSafe API](https://docs.typesafe.ai/api/system-one)、[Microsoft公式利用手順](https://learn.microsoft.com/en-us/azure/foundry/foundry-models/how-to/use-foundry-models-microsoft-decision)。
+
+**設計案**：接続先・認証情報・認証ヘッダー・モデル指定を設定で切り替え、記事・質問・判定基準とPython側の集計ロジックを共用する構成を検討できる。これは仕様照合に基づく判断であり、実接続による互換性確認済みではない。
+
+TypeSafe専用SDKが無変更でAzureへ接続できること、全拡張機能・制限・エラー形式・結果項目が一致すること、同じ判定結果や品質が得られることは保証しない。採用する接続方式で、使用する質問形式と結果の取り出し方を実接続確認してから共用範囲を確定する。SDK・接続方式の未決状態は維持する。
+
 #### Python側の責務分割案
 
 以下は論理的な機能分割であり、ファイル名やクラス名の確定ではない。
