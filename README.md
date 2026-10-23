@@ -36,13 +36,14 @@ Memo: 設計段階のRepository固有README。記載した機能は設計上の�
 
 1. [Overview（概要）](#1-overview概要)
 2. [Purpose（目的）](#2-purpose目的)
-3. [Main Features（主な機能）](#3-main-features主な機能)
-4. [Target Users（利用対象）](#4-target-users利用対象)
-5. [Operating Environment（動作環境）](#5-operating-environment動作環境)
-6. [Basic Usage Flow（基本的な利用フロー）](#6-basic-usage-flow基本的な利用フロー)
-7. [Specification-Driven Development（SDDによる管理）](#7-specification-driven-developmentsddによる管理)
-8. [Design Documents（設計書への入口）](#8-design-documents設計書への入口)
-9. [Current Position（現在地点）](#9-current-position現在地点)
+3. [なぜ「判断特化型AI」を使うのか](#3-なぜ判断特化型aiを使うのか)
+4. [Main Features（主な機能）](#4-main-features主な機能)
+5. [Target Users（利用対象）](#5-target-users利用対象)
+6. [Operating Environment（動作環境）](#6-operating-environment動作環境)
+7. [Basic Usage Flow（基本的な利用フロー）](#7-basic-usage-flow基本的な利用フロー)
+8. [Specification-Driven Development（SDDによる管理）](#8-specification-driven-developmentsddによる管理)
+9. [Design Documents（設計書への入口）](#9-design-documents設計書への入口)
+10. [Current Position（現在地点）](#10-current-position現在地点)
 
 ---
 
@@ -62,7 +63,11 @@ Botは GoogleニュースのRSSで記事を取得する。この方式は採用�
 
 ## 2. Purpose（目的）
 
-IT初心者への対面指導で使うニュース記事の収集・判定・分類・蓄積を支援する。
+### 2.1 解決したい課題
+
+日々多くの記事を確認し、指導に役立つものを選ぶ作業には時間がかかる。記事の収集・判定・分類・蓄積の負担を減らし、内容の理解や生徒向けの教材化に時間を使えるようにしたい。
+
+### 2.2 このBotが行うこと
 
 - 記事について、指導で共有する価値を判定する
 - 記事の対象レベルとカテゴリを分類する
@@ -72,7 +77,15 @@ IT初心者への対面指導で使うニュース記事の収集・判定・分
 
 ---
 
-## 3. Main Features（主な機能）
+## 3. なぜ「判断特化型AI」を使うのか
+
+記事の判定・分類にJevを採用し、汎用LLM（文章生成や対話などに広く使われるAI）よりも、目的に沿った一貫した判定ができるかを検証する。Jevの優位性は未検証である。
+
+まずロジックどおりの動作を確認し、その後に比較検証を進める。採用理由と検証目的の詳細は [要求定義書 §5.1](./docs/design/01_REQUEST_DEFINITION.md#51-background-and-purpose背景課題目的) を参照する。
+
+---
+
+## 4. Main Features（主な機能）
 
 以下は設計上の機能であり、未実装である。
 
@@ -91,13 +104,13 @@ IT初心者への対面指導で使うニュース記事の収集・判定・分
 
 ---
 
-## 4. Target Users（利用対象）
+## 5. Target Users（利用対象）
 
 主Userは Repository管理者本人である。不特定多数向けのサービスとして設計しない。
 
 ---
 
-## 5. Operating Environment（動作環境）
+## 6. Operating Environment（動作環境）
 
 | Item（項目） | Value（値） |
 |---|---|
@@ -111,7 +124,7 @@ Webアプリ、クラウド常駐サービスとしては構成しない。ニ�
 
 ---
 
-## 6. Basic Usage Flow（基本的な利用フロー）
+## 7. Basic Usage Flow（基本的な利用フロー）
 
 データの流れの概要を次に示す。Botが受け取る情報、Jevへ渡す情報とJevの結果、Obsidianへ保存する情報を簡略化して示す。
 
@@ -144,7 +157,7 @@ flowchart TD
 
 ---
 
-## 7. Specification-Driven Development（SDDによる管理）
+## 8. Specification-Driven Development（SDDによる管理）
 
 本Repositoryは SDD（Specification-Driven Development）で管理する。
 
@@ -157,7 +170,7 @@ Repository Purpose は `DEVELOPMENT` である。
 
 ---
 
-## 8. Design Documents（設計書への入口）
+## 9. Design Documents（設計書への入口）
 
 設計文書の入口は [docs/design/README.md](./docs/design/README.md) である。
 
@@ -172,6 +185,6 @@ Repository Purpose は `DEVELOPMENT` である。
 
 ---
 
-## 9. Current Position（現在地点）
+## 10. Current Position（現在地点）
 
 作業の現在地点、次の作業、阻害要因は [project-notes/CURRENT.md](./project-notes/CURRENT.md) を正とする。

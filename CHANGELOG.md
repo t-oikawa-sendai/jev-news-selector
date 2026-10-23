@@ -58,6 +58,7 @@ Git 履歴は差分確認の補助として利用する。CHANGELOG の代替と
 
 | Version（バージョン） | Date（日付） | Document（文書） | Category（分類） | Changes（変更内容） | Author（作成者） |
 |---|---|---|---|---|---|
+| 0.1 | 2026-10-23 | `README.md` / `docs/design/01_REQUEST_DEFINITION.md` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Changed | User承認により記事選別の負担、Jev採用理由、汎用LLMより一貫した判定ができるかを検証する目的を記録。優位性は未検証とし、初期動作確認後に同一記事・基準で比較する。READMEは概要、要求定義01は背景・目的の詳細、要件定義02は機能・条件の詳細という分担を維持。READMEの目次・章番号を更新。実装・比較試験・Commit・Pushは未実施 | Takashi Oikawa |
 | 0.1 | 2026-10-23 | `docs/design/05_ARCHITECTURE_DESIGN.md` / `docs/design/06_OPERATION_AND_HANDOFF.md` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Changed | User確認を記録。初期はロジック動作優先、品質は段階改善、ルールは独立パーツと組み合わせで検証、251件はテスト用とする。固定回答のロジック確認と実API接続確認を分離し、初期に品質評価データの厳密化を要求しない。実装・試験・Commit・Push未実施 | Takashi Oikawa |
 | 0.1 | 2026-10-23 | `README.md` / `docs/design/` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Changed | User指示により初期版をCLI手動実行・最小機能テストと明記。05 §6へ最小テスト→一連の手動動作確認→自動化等の追加という段階を記録。関連する起動方式の未確認表記を具体的なコマンド・引数の未確定へ更新。全件保存は維持。実装・API実行・Commit・Pushなし | Takashi Oikawa |
 | 0.1 | 2026-10-23 | `docs/design/05_ARCHITECTURE_DESIGN.md` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Added | Python・Jev APIを使うプログラム概要設計案を05 §6へ追記。公式仕様の出典、Jev個別判断とPython集計の分担、初期版／将来質問、二重加点・関係性・確率の扱い、データと検証の案を記録。全件保存と既存値域は維持。未承認・実装なし・Commit／Pushなし | Takashi Oikawa |
