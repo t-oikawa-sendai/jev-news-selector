@@ -3,7 +3,7 @@ Program Name: jev-news-selector CURRENT
 Language: Markdown
 Function: jev-news-selectorの目的・完了・現在地点・次作業・阻害要因を管理する
 Created: 2026-10-06
-Last Updated: 2026-10-23
+Last Updated: 2026-10-24
 Author: Takashi Oikawa
 AI: Cursor
 Memo: Canonical Sourceは solacom_main の project-notes/CURRENT_TEMPLATE.md。Runtime側に CURRENT_TEMPLATE.md を作成しない
@@ -20,7 +20,7 @@ Memo: Canonical Sourceは solacom_main の project-notes/CURRENT_TEMPLATE.md。R
 | Version（バージョン） | 0.1 |
 | Status（ステータス） | Draft |
 | Created Date（作成日） | 2026-10-06 |
-| Last Updated（最終更新日） | 2026-10-23 |
+| Last Updated（最終更新日） | 2026-10-24 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | ../README.md / ../CONSTITUTION.md / ../AGENTS.md / ../CHANGELOG.md / ../docs/design/README.md |
 
@@ -35,6 +35,8 @@ Repository Purpose: `DEVELOPMENT`
 SDDに基づき Repository固有の設計文書を整備し、Userレビューと承認を経て実装引き継ぎへ進む。
 
 ## Completed（完了）
+
+- 2026-10-24、Userが決定した初期CLI接続試験の限定条件（既存251件Excel、TypeSafe直接、公式Python SDK、O-01の10カテゴリ候補の試験限定仮使用、タイトルのみ入力）を02・04・05・06へ統合し、初回接続確認と後続のルール・本体検証の境界を整合した。設計はDraftのまま。実装・API実呼出し・試験・Commit・Pushは未実施。
 
 - 2026-10-23、User指示により、判断特化型AIの比較候補（Jev・Microsoft-Decision-1・Clef／Clef-flash）、利用手順、料金・概算条件・公式出典、JevとMicrosoftのAPI共用条件を05 §6へ記録した。調査記録のみで、採用変更・実装・実API接続・比較試験は未実施。
 
@@ -69,7 +71,11 @@ SDDに基づき Repository固有の設計文書を整備し、Userレビュー�
 
 ## Current（現在）
 
-- AI比較候補・料金・API共用条件の調査記録を05 §6へ反映済み。接続先・認証情報・認証ヘッダー・モデル指定を切り替える共用案は実接続未検証。Jevの採用は維持。今回の3文書は2026-10-23のUser指示により本コミットへ記録する。Pushは後日とし、今回は実施しない。
+- 初期CLI接続試験はタイトルのみを入力とする3判断（Score・対象レベル・カテゴリ）の回答形式確認である。O-01の10候補は試験限定の仮使用。RSS・本文取得・全件Markdown保存は本体要件として後続に維持する。05 §6と06 §5.3を参照。Version 0.1 / Draftで設計未承認。
+
+- 指定作業先のローカルHEADは`f758160`、作業開始時は未Commit変更なし。GitHub `main`およびローカル`origin/main`は`05c7433`。`f758160`の既存変更を保持した上で、今回の6文書の統合差分は未Commit・未Push。
+
+- AI比較候補・料金・API共用条件の調査記録を05 §6へ反映済み。接続先・認証情報・認証ヘッダー・モデル指定を切り替える共用案は実接続未検証。Jevの採用は維持。2026-10-23の3文書の変更は`f758160`に記録済みで、Pushは保留中。
 
 - 文書情報表の折りたたみ変更は05c7433でPush済み（User提示の実行結果）。README背景・Jev比較検証目的の変更はd1d24f5でPush済み（User提示の実行結果）。
 
@@ -79,10 +85,10 @@ SDDに基づき Repository固有の設計文書を整備し、Userレビュー�
 
 - 2026-10-23 User方針：初期版はCLIから手動実行し、シンプルな最小機能でテストする。動作確認後に自動化等を追加する。05 §6に3段階を記録し、01・02・04・06と関連記述を整合した。自動実行と記事の自動除外は別扱いとし、全件保存は維持する。
 
-- Python・Jev APIによる概要設計を検討中。05 §6のプログラム案を参照。初期版3判断と将来の選別用質問を分離し、全件保存を維持する。公式の接続仕様は確認したが、SDK・モデルの採用版と本Botの処理分担は未承認。
+- Python・Jev APIによる概要設計を検討中。05 §6のプログラム案を参照。初期版3判断と将来の選別用質問を分離し、全件保存を維持する。初回CLI試験はTypeSafe直接・公式Python SDKとするが、SDK版・モデル識別子と本体での処理分担は未確定。
 
 - 設計は未承認であり、Version 0.1 / Draft を維持している。2026-10-23にGitHubコネクターで確認した `main` は `42ec0236a5985842d92500509cac2ef65c2c6d06`（`docs: unify User terminology and clarify overview`）。作業開始時のローカルHEADと一致し、作業ツリーはcleanだった。共有は設計承認ではない
-- 今回の作業先は `Documents/ChatGPT/☑️jev-news-selector/repository` の独立Clone。既存 `~/Dev/jev-news-selector` は変更していない。05 §6の選別案は未承認・Jev仕様照合前であり、FR-012の全件保存、Score 0〜4、単一カテゴリ、User評価との分離を維持する。今回の文書変更はUserのCommit・Push指示（2026-10-23）の対象。本コミットに記録し、GitHub反映結果は完了報告で確認する。
+- 今回の作業先は `Documents/ChatGPT/☑️jev-news-selector/repository` の独立Clone。既存 `~/Dev/jev-news-selector` は変更していない。05 §6の選別案は未承認・Jev仕様照合前であり、FR-012の全件保存、Score 0〜4、単一カテゴリ、User評価との分離を維持する。2026-10-23の変更は`f758160`に記録済みで未Push。2026-10-24の追記は未Commit・未Push。
 - Userを指す表示の `User` への統一と、ルート `README.md` §1 第1段落の文章修正は、commit `42ec023` に含まれていることを2026-10-23に確認した。従来の未commit表記は過去の記録である。基準稿 `d55df18` に対するレビュー資料 §13 の PASS と、この差分のレビューは別である。後者は未実施であり、PASSではない。過去のPASSをこの判定へ転用しない
 - 中央正本は変更していない。配布コピーに表記差分がある。中央正本との一致は未確認であり、IDENTICAL / PASS ではない
 - 撤回事項：Userが記事を探す、選ぶ、URLをコピーする、ターミナルへURLを入力する仕様は、Userの明示により撤回済み。これに伴い US-001 / FR-001 / SCR-001 を失効とし、IDを別仕様へ転用しない
@@ -99,6 +105,8 @@ SDDに基づき Repository固有の設計文書を整備し、Userレビュー�
 - 図整備後の再レビュー（164732 ZIP）の FAIL は、限定是正後の再レビュー（180248 ZIP）で解消が確認された（前回の限定是正 PASS）。その後の追加整備（README §6 の概要図、04 SC-001 の補足）も、追加整備後の再レビュー（182130 ZIP）で PASS となった。今回の設計書整備の内容レビューは完了している。過去の FAIL と再レビュー待ちは上記 Completed の履歴として残す。処理フローとデータの流れはMermaid図へ更新済みである。F-ID / R-ID の正式台帳はなく、入口の決定は ID未登録である
 
 ## Next（次）
+
+- 初回試験の対象ID・指定方法、CLIコマンド・引数、公式SDK版・モデル識別子、鍵の取り扱い、失敗時の扱いを整理する。設計承認後に実装・実API接続を確認し、続いてルールパーツ単独・組み合わせ、実API回答との結合を検証する。
 
 - 動作確認後の比較に向け、同じ記事・判定基準による汎用LLMとの比較方法を具体化する。一貫性と講師判断への適合性を分け、比較対象モデル・測定方法・合否基準を決める。初期CLI動作確認の前提にはしない。
 
@@ -119,11 +127,13 @@ SDDに基づき Repository固有の設計文書を整備し、Userレビュー�
 
 ## Blockers（阻害要因）
 
+- 初回CLI試験の対象ID・入力ファイル配置・指定形式、CLIコマンド・引数、SDK版・モデル識別子、API失敗時の再試行・継続は未確定。今回の6文書は未Commit・未Pushであり、既存の`f758160`も未Push。
+
 - 05 §6の一般案はJev仕様との全面照合前。公式API・Python SDK・判定型の確認結果とプログラム案は追記済み。重み・関係性・採否基準値・例外順序・処理分担は未確定であり、自動選別を導入しない。
-- 今回の文書変更はUserのCommit・Push指示（2026-10-23）の対象。本コミットに記録し、GitHub反映結果は完了報告で確認する。
+- 2026-10-23のCommit指示で保存された`f758160`は、当時の指示に従いPushが保留されている。今回の追記については2026-10-24のUser指示によりCommit・Pushしない。
 
 - 設計全体は未承認である。形式検査の成功は設計承認を意味しない。再レビューと保留事項が残る間は設計承認・実装引き渡しへ進めない
-- 過去のUser表記統一と README §1 の文章修正は42ec023で保存済み。今回の文書差分は2026-10-23のCommit・Push指示に基づき保存する。設計全体の承認や実装開始許可とは区別する
+- 過去のUser表記統一と README §1 の文章修正は42ec023で保存済み。今回の追記差分は未Commit・未Pushであり、設計全体の承認や実装開始許可ではない
 - この作業ツリー差分の実レビューは未実施である。レビュー資料 §13 の PASS は、表記統一前の `d55df18` に対する判定であり、今回の判定へ転用しない
 - GoogleニュースRSSは採用済みであり、検証は未完了である。RSSのURLと使用ライブラリは未確認である
 - 入口の分野・検索語は暫定採用済みである。具体一覧は原記録未復元である。未決へは戻していない

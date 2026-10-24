@@ -3,7 +3,7 @@ Program Name: jev-news-selector CHANGELOG
 Language: Markdown
 Function: jev-news-selectorの変更履歴正本
 Created: 2026-10-06
-Last Updated: 2026-10-23
+Last Updated: 2026-10-24
 Author: Takashi Oikawa
 AI: Cursor
 Memo: Runtime /CHANGELOG.md。推測履歴を記載しない。Runtime側に CHANGELOG_TEMPLATE.md は作成しない
@@ -20,7 +20,7 @@ Memo: Runtime /CHANGELOG.md。推測履歴を記載しない。Runtime側に CHA
 | Version（バージョン） | 0.1 |
 | Status（ステータス） | Draft |
 | Created Date（作成日） | 2026-10-06 |
-| Last Updated（最終更新日） | 2026-10-23 |
+| Last Updated（最終更新日） | 2026-10-24 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | [CONSTITUTION.md](./CONSTITUTION.md) / [AGENTS.md](./AGENTS.md) / [README.md](./README.md) / [docs/design/README.md](./docs/design/README.md) |
 
@@ -62,6 +62,7 @@ Git 履歴は差分確認の補助として利用する。CHANGELOG の代替と
 
 | Version（バージョン） | Date（日付） | Document（文書） | Category（分類） | Changes（変更内容） | Author（作成者） |
 |---|---|---|---|---|---|
+| 0.1 | 2026-10-24 | `docs/design/02_REQUIREMENTS_DEFINITION.md` / `docs/design/04_UI_AND_FLOW_DESIGN.md` / `docs/design/05_ARCHITECTURE_DESIGN.md` / `docs/design/06_OPERATION_AND_HANDOFF.md` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Changed | User決定の初期CLI接続試験（既存251件Excel、TypeSafe直接、公式Python SDK、タイトルのみ、O-01の10候補を試験限定で仮使用）を統合。3判断の入力・回答検査と後続試験の境界を整合した。本体のRSS・全件保存、O-01 OPEN、Version 0.1 / Draftを維持。実装・API実呼出し・Commit・Pushは未実施 | Takashi Oikawa |
 | 0.1 | 2026-10-23 | `docs/design/05_ARCHITECTURE_DESIGN.md` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Added | User指示により判断特化型AIの比較候補・利用手順・確認日付き料金と概算・公式出典を記録。JevとMicrosoftの基本API構成と接続・認証・モデル指定の差異、設定切替による共用案、実接続未検証の範囲を明記。採用変更・実装・比較試験・Commit・Pushなし | Takashi Oikawa |
 | 0.1 | 2026-10-23 | 冒頭に文書情報表を持つ13文書 | Changed | User指示により文書情報表をdetails・summaryで折りたたみ表示へ変更。管理項目・値は維持。CURRENTに状態を記録。Commit・Push未実施 | Takashi Oikawa |
 | 0.1 | 2026-10-23 | `README.md` / `docs/design/01_REQUEST_DEFINITION.md` / `project-notes/CURRENT.md` / `CHANGELOG.md` | Changed | User承認により記事選別の負担、Jev採用理由、汎用LLMより一貫した判定ができるかを検証する目的を記録。優位性は未検証とし、初期動作確認後に同一記事・基準で比較する。READMEは概要、要求定義01は背景・目的の詳細、要件定義02は機能・条件の詳細という分担を維持。READMEの目次・章番号を更新。実装・比較試験・Commit・Pushは未実施 | Takashi Oikawa |

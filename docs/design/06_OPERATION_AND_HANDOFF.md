@@ -9,7 +9,7 @@
 | Version（バージョン） | 0.1 |
 | Status（ステータス） | Draft |
 | Created Date（作成日） | 2026-10-06 |
-| Last Updated（最終更新日） | 2026-10-23 |
+| Last Updated（最終更新日） | 2026-10-24 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | README.md / 01_REQUEST_DEFINITION.md / 02_REQUIREMENTS_DEFINITION.md / 03_DATA_AND_SECURITY_DESIGN.md / 05_ARCHITECTURE_DESIGN.md / ../../project-notes/CURRENT.md |
 
@@ -74,7 +74,7 @@
 | ID | Handoff Item（引き継ぎ事項） | Details / Background（詳細・背景） |
 |---|---|---|
 | HO-001 | 未決事項の扱い | O-01〜O-06 は担当文書で管理する（所在は [README.md](./README.md) §5.2）。実装前に決定が必要な範囲はUserが判断する。入口の分野・検索語は暫定採用済みであり、[02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6 で管理する。具体一覧は原記録未復元のため補完しない。O-01〜O-06 に該当しない未確認事項（RSSのURL・使用ライブラリ、CLIの具体的なコマンド・引数、再処理時のファイル名、ファイル名に使えない文字の扱い、処理失敗時の扱い、データベースの採否）は ID未登録であり、[CURRENT.md](../../project-notes/CURRENT.md) の Blockers に記録する |
-| HO-002 | 実装段階で決定する事項 | 最終記事URLの具体的正規化方式（O-04）、記事抽出Pythonライブラリ（O-05。状態は OPEN。Userから暫定採用を指摘する発言があり、具体値は原記録未復元である。再選定が必要とは断定しない）、Jevへ渡す本文量・Jev SDK / API 具体方式（[05](./05_ARCHITECTURE_DESIGN.md) §6）、APIキー保存方式・URL由来短縮識別子の生成方式（[03](./03_DATA_AND_SECURITY_DESIGN.md) §6）、対象外記事のメッセージ文言（[04](./04_UI_AND_FLOW_DESIGN.md) §6）。いずれも AI判断で確定しない |
+| HO-002 | 実装段階で決定する事項 | 最終記事URLの具体的正規化方式（O-04）、記事抽出Pythonライブラリ（O-05。状態は OPEN。Userから暫定採用を指摘する発言があり、具体値は原記録未復元である。再選定が必要とは断定しない）、本体でJevへ渡す本文量・Jev SDK / API の具体方式（初回CLI接続試験はTypeSafe直接・公式Python SDK。[05](./05_ARCHITECTURE_DESIGN.md) §6）、APIキー保存方式・URL由来短縮識別子の生成方式（[03](./03_DATA_AND_SECURITY_DESIGN.md) §6）、対象外記事のメッセージ文言（[04](./04_UI_AND_FLOW_DESIGN.md) §6）。いずれも AI判断で確定しない |
 | HO-003 | 公開日の補完禁止 | 公開日を特定できない記事は対象外とする。鮮度・信頼性を確認できないためである。タイムゾーン付き日時は Asia/Tokyo へ変換し、日付だけなら明示された日付を使う |
 | HO-004 | 最終記事URLによる一意管理 | 記事取得で得たURLが最終記事URLと異なる場合も、最終記事URLで重複を判定する |
 | HO-005 | 再処理とUser評価の保持 | 登録済み記事でも対象日判定を行い、通過した場合のみ再取得・Jev再判定・更新する。`published` と本文の公開日表示は最新の取得値へ更新する。`processed` とUser評価を保持し、初回処理日フォルダから移動・複製しない |
@@ -107,7 +107,22 @@
 
 本表は試験観点を定めるものであり、ログ・監視等の機能追加を要求しない。
 
-初期CLIテストは選別品質ではなく、定義したロジックどおりの動作を確認する。ルールのパーツ単独→組み合わせ→実API接続の確認を分離し、固定回答を用いる確認と実APIによる確認の両方を行う。251件はテスト用であり、品質の正解データとは扱わない。方針の正本は [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) §6「初期検証の方針とルールのパーツ分割」。
+初期CLIテストは選別品質より動作確認を優先する。初回の3判断のAPI接続確認、固定回答によるルールパーツ単独・組み合わせの確認、実API回答との結合を分ける。251件はテスト用であり、品質の正解データとは扱わない。方針の正本は[05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) §6である。
+
+#### 初回CLI接続確認（2026-10-24 User決定）
+
+初回は[05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) §6の限定条件に従い、既存251件のExcelから抽出した記事タイトルのみをTypeSafe公式Python SDKでJevへ渡す。Pythonを手動起動し、Score・対象レベル・カテゴリの回答形式を確認する。記事取得やMarkdown保存の結合試験とは分ける。
+
+| 観点 | 確認方法・期待結果 |
+|---|---|
+| 入力 | 登録IDと空でないタイトルを確認する |
+| 接続 | TypeSafe直接接続による応答と応答モデルを確認する |
+| 3判断 | Scoreは0〜4の数値で小数を丸めない。対象レベルは既存3値、カテゴリはO-01の仮の10候補から各1つ |
+| 回答異常 | 欠落・型不正・範囲外を検知し、正常値へ置換しない |
+| 非変更 | Obsidian Vault・既存Markdown・User評価・Git管理文書を変更しない |
+| 秘密情報 | APIキー等の実値を画面・ログ・Gitへ残さない |
+
+初回は回答の意味的な正しさ、251件の正解率、一貫性、モデル優位性を合否としない。実際のAPI応答と回答検査結果は、試験実施後に証拠として記録する。続くパーツ単独・組み合わせ・実API回答との結合、RSS・対象日判定・全件Markdown保存は別に確認する。対象IDの選定・指定、CLIコマンド・引数、SDK版・モデル識別子、処理失敗時の扱いは未確定である。
 
 ### 5.4 Deployment and Release Overview（デプロイ・リリース手順概要）
 

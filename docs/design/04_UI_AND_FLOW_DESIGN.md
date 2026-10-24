@@ -9,7 +9,7 @@
 | Version（バージョン） | 0.1 |
 | Status（ステータス） | Draft |
 | Created Date（作成日） | 2026-10-06 |
-| Last Updated（最終更新日） | 2026-10-23 |
+| Last Updated（最終更新日） | 2026-10-24 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | README.md / 02_REQUIREMENTS_DEFINITION.md / 03_DATA_AND_SECURITY_DESIGN.md / 05_ARCHITECTURE_DESIGN.md / 06_OPERATION_AND_HANDOFF.md / ../../project-notes/CURRENT.md |
 
@@ -75,6 +75,12 @@ CLIの具体的なコマンド・引数は未確認であり、本文書では�
 | Screen ID（画面ID） | Screen Name（画面名） | Input Items（入力項目） | Output Items（出力項目） | Main Operations（主要操作） | Notes（備考） |
 |---|---|---|---|---|---|
 | SCR-001 | （失効）Terminal（ターミナル） | ― | ― | ― | 2026-10-06 失効。記事URLの手入力を前提とした画面定義であり、Userの明示により撤回された。本IDを別の画面・起動方式へ転用しない |
+
+#### 初期CLI接続試験の一時的な入出力
+
+初回接続試験では既存251件のExcelから抽出した記事タイトルのみをJevへ送る。Pythonを手動起動し、試験対象を指定して、登録ID・タイトル・応答モデル・Score・対象レベル・カテゴリ・回答検査結果をターミナルで確認する案とする。これは本体の画面定義や失効したSCR-001の復活ではない。
+
+試験対象の指定方法、コマンド名・引数・表示書式は未確定。記事URLのUser手入力や記事の探索・選択を本体仕様として追加しない。本体のRSS処理は後続段階に維持する。詳細は[05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) §6を参照する。
 
 ### 5.2 Screen Transition and Business Flow（画面遷移図・業務フロー）
 

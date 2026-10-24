@@ -9,7 +9,7 @@
 | Version（バージョン） | 0.1 |
 | Status（ステータス） | Draft |
 | Created Date（作成日） | 2026-10-06 |
-| Last Updated（最終更新日） | 2026-10-23 |
+| Last Updated（最終更新日） | 2026-10-24 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | README.md / 01_REQUEST_DEFINITION.md / 03_DATA_AND_SECURITY_DESIGN.md / 04_UI_AND_FLOW_DESIGN.md / 05_ARCHITECTURE_DESIGN.md / 06_OPERATION_AND_HANDOFF.md / ../../project-notes/CURRENT.md |
 
@@ -209,6 +209,12 @@ JST:    2026-10-06 08:30 JST
 - 50件は今回の検証用上限である。通常運用の上限へ自動適用しない
 
 FR-012 の全件保存は、この入口の処理対象に入り、対象日条件を通過した記事の全件保存である。Scoreを理由に除外しない。
+
+#### 初期CLI接続試験と本体要件の関係
+
+2026-10-24のUser決定により、初回接続試験では既存251件のExcelから抽出した記事のタイトルだけをJevへ入力する。これは接続と3判断の回答形式を確認するための試験条件であり、FR-002〜FR-020の本体要件を変更しない。
+
+初回接続試験だけでは、RSS取得、公開日・対象日判定、最終記事URLによる一意判定、Markdown全件保存・再処理、User評価保持を検証済みとしない。カテゴリ10候補はO-01のOPENを維持し、試験に限って仮使用する。入力と質問は[05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) §6、段階別の試験方針は[06_OPERATION_AND_HANDOFF.md](./06_OPERATION_AND_HANDOFF.md) §5.3を参照する。
 
 ### 5.2 Non-Functional Requirements（非機能要件）
 
