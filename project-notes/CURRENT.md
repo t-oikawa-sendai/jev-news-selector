@@ -3,7 +3,7 @@ Program Name: jev-news-selector CURRENT
 Language: Markdown
 Function: jev-news-selectorの目的・完了・現在地点・次作業・阻害要因を管理する
 Created: 2026-10-06
-Last Updated: 2026-10-24
+Last Updated: 2026-11-10
 Author: Takashi Oikawa
 AI: Cursor
 Memo: Canonical Sourceは solacom_main の project-notes/CURRENT_TEMPLATE.md。Runtime側に CURRENT_TEMPLATE.md を作成しない
@@ -20,7 +20,7 @@ Memo: Canonical Sourceは solacom_main の project-notes/CURRENT_TEMPLATE.md。R
 | Version（バージョン） | 0.1 |
 | Status（ステータス） | Draft |
 | Created Date（作成日） | 2026-10-06 |
-| Last Updated（最終更新日） | 2026-10-24 |
+| Last Updated（最終更新日） | 2026-11-10 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | ../README.md / ../CONSTITUTION.md / ../AGENTS.md / ../CHANGELOG.md / ../docs/design/README.md |
 
@@ -35,6 +35,8 @@ Repository Purpose: `DEVELOPMENT`
 SDDに基づき Repository固有の設計文書を整備し、Userレビューと承認を経て実装引き継ぎへ進む。
 
 ## Completed（完了）
+
+- 2026-11-10、User承認済みの変更予定一覧（C-1〜C-5）に基づき、設計文書の整合性整理を実施した。対象は02・03・04・06・設計Index・CURRENT。内容は、CURRENT内の古い状態記述の更新、03と設計Indexへの初回CLI接続試験の参照の追随、APIキーの扱いの時期表現の統一、04 SC-004・§7への `jev_*` 更新項目の明記、02 §5.1.6への接続方式の参照追加であり、仕様の意味変更・分類変更・新規ID採番はない。Version 0.1 / Draft を維持。commit・pushは未実施（Userの実差分レビュー待ち）。設計承認・実装・Jev API実呼出しは行っていない。
 
 - 2026-10-24、UserのCommit・Push・ローカル同期指示により、設計統合の6文書を`368f107`に記録し、先行する`f758160`とともにGitHub `main`へPushした。GitHub上の`368f107`を確認し、指定作業Cloneと`~/Dev/jev-news-selector`を同Commitへ同期した。設計承認・実装・Jev API実呼出しは行っていない。
 
@@ -89,8 +91,8 @@ SDDに基づき Repository固有の設計文書を整備し、Userレビュー�
 
 - Python・Jev APIによる概要設計を検討中。05 §6のプログラム案を参照。初期版3判断と将来の選別用質問を分離し、全件保存を維持する。初回CLI試験はTypeSafe直接・公式Python SDKとするが、SDK版・モデル識別子と本体での処理分担は未確定。
 
-- 設計は未承認であり、Version 0.1 / Draft を維持している。2026-10-23にGitHubコネクターで確認した `main` は `42ec0236a5985842d92500509cac2ef65c2c6d06`（`docs: unify User terminology and clarify overview`）。作業開始時のローカルHEADと一致し、作業ツリーはcleanだった。共有は設計承認ではない
-- 今回の作業先は `Documents/ChatGPT/☑️jev-news-selector/repository` の独立Clone。`~/Dev/jev-news-selector` もGitHubから早送り同期した。05 §6の選別案は未承認・Jev仕様照合前であり、FR-012の全件保存、Score 0〜4、単一カテゴリ、User評価との分離を維持する。
+- 設計は未承認であり、Version 0.1 / Draft を維持している。GitHub `main` の最新commitは `7fe443f` であり、2026-10-24に設計統合（`368f107`・`f758160`）のPushと指定作業Clone・`~/Dev/jev-news-selector` への同期が完了している（Completed参照）。共有は設計承認ではない
+- 05 §6の選別案は未承認・Jev仕様照合前であり、FR-012の全件保存、Score 0〜4、単一カテゴリ、User評価との分離を維持する。
 - Userを指す表示の `User` への統一と、ルート `README.md` §1 第1段落の文章修正は、commit `42ec023` に含まれていることを2026-10-23に確認した。従来の未commit表記は過去の記録である。基準稿 `d55df18` に対するレビュー資料 §13 の PASS と、この差分のレビューは別である。後者は未実施であり、PASSではない。過去のPASSをこの判定へ転用しない
 - 中央正本は変更していない。配布コピーに表記差分がある。中央正本との一致は未確認であり、IDENTICAL / PASS ではない
 - 撤回事項：Userが記事を探す、選ぶ、URLをコピーする、ターミナルへURLを入力する仕様は、Userの明示により撤回済み。これに伴い US-001 / FR-001 / SCR-001 を失効とし、IDを別仕様へ転用しない
@@ -107,6 +109,8 @@ SDDに基づき Repository固有の設計文書を整備し、Userレビュー�
 - 図整備後の再レビュー（164732 ZIP）の FAIL は、限定是正後の再レビュー（180248 ZIP）で解消が確認された（前回の限定是正 PASS）。その後の追加整備（README §6 の概要図、04 SC-001 の補足）も、追加整備後の再レビュー（182130 ZIP）で PASS となった。今回の設計書整備の内容レビューは完了している。過去の FAIL と再レビュー待ちは上記 Completed の履歴として残す。処理フローとデータの流れはMermaid図へ更新済みである。F-ID / R-ID の正式台帳はなく、入口の決定は ID未登録である
 
 ## Next（次）
+
+- 2026-11-10の整合性整理（C-1〜C-5）の実差分レビュー。レビュー完了とUserの明示指示があるまでcommit・pushしない。
 
 - 初回試験の対象ID・指定方法、CLIコマンド・引数、公式SDK版・モデル識別子、鍵の取り扱い、失敗時の扱いを整理する。設計承認後に実装・実API接続を確認し、続いてルールパーツ単独・組み合わせ、実API回答との結合を検証する。
 

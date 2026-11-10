@@ -9,9 +9,9 @@
 | Version（バージョン） | 0.1 |
 | Status（ステータス） | Draft |
 | Created Date（作成日） | 2026-10-06 |
-| Last Updated（最終更新日） | 2026-10-08 |
+| Last Updated（最終更新日） | 2026-11-10 |
 | Owner（管理者） | Takashi Oikawa |
-| Related Documents（関連文書） | README.md / 02_REQUIREMENTS_DEFINITION.md / 04_UI_AND_FLOW_DESIGN.md / 05_ARCHITECTURE_DESIGN.md / ../../project-notes/CURRENT.md |
+| Related Documents（関連文書） | README.md / 02_REQUIREMENTS_DEFINITION.md / 04_UI_AND_FLOW_DESIGN.md / 05_ARCHITECTURE_DESIGN.md / 06_OPERATION_AND_HANDOFF.md / ../../project-notes/CURRENT.md |
 
 </details>
 
@@ -238,7 +238,8 @@ Userアカウントや複数Userの権限区分は要求されていない。
 - 本Botの処理対象は公開されたニュース記事であり、個人情報の収集を目的としない
 - Jev利用のための APIキー等の認証情報は機密データとして扱う
 - 認証情報を Git へ commit しない。設計書・README に実値を書かない
-- 認証情報の具体的な保存方式は未決（実装段階で決定）。決定前に AI判断で `.env` 等の保存方式を実装しない
+- 認証情報の具体的な保存方式は未決（実装段階で決定）。決定前に AI判断で `.env` 等の保存方式を実装しない。初回CLI接続試験では、実行前にAPIキーの配置・認証方法を確認する（恒常的な保存方式の決定とは別である）
+- 初回CLI接続試験の限定条件は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6 と [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) §6 を正本とし、本文書では試験条件を定めない
 
 ### 5.5 Encryption, Masking, and Logging Policy（暗号化・マスキング・ログ取得方針）
 
@@ -252,7 +253,7 @@ Userアカウントや複数Userの権限区分は要求されていない。
 
 | Type（種別） | Design Specification（設計仕様） |
 |---|---|
-| Authentication（認証） | Jev利用時の認証情報は Git・設計書・README に含めない。保存方式は未決（実装段階で決定） |
+| Authentication（認証） | Jev利用時の認証情報は Git・設計書・README に含めない。保存方式は未決（実装段階で決定）。初回CLI接続試験では実行前に配置・認証方法を確認する |
 | Authorization（認可） | 本文書では対象外。理由: 単一Userのローカル実行であり、Userアカウント機能が要求されていないため |
 | Access Control（権限管理） | Botの書込み先は Obsidian Vault の `Bot News/` 配下とする。Vault の絶対パスは O-06 |
 | Communication（通信） | 記事取得、最終記事URLの取得、記事情報取得、Jev判定で外部と通信する。記事取得は GoogleニュースRSSである（採用し、検証する。URL・使用ライブラリは未確認）。入口の範囲は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6。記事情報の抽出方式は O-05。責務は [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) |

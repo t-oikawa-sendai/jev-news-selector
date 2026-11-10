@@ -9,7 +9,7 @@
 | Version（バージョン） | 0.1 |
 | Status（ステータス） | Draft |
 | Created Date（作成日） | 2026-10-06 |
-| Last Updated（最終更新日） | 2026-10-23 |
+| Last Updated（最終更新日） | 2026-11-10 |
 | Owner（管理者） | Takashi Oikawa |
 | Related Documents（関連文書） | [README.md](../../README.md)（リポジトリルート） / [CHANGELOG.md](../../CHANGELOG.md)（リポジトリルート） / [CURRENT.md](../../project-notes/CURRENT.md) / solacom_main/docs/standards/DESIGN_DOCUMENT_STANDARD.md |
 
@@ -99,6 +99,7 @@ Userの操作は次の2つである。
 - Jevは記事の判定・分類だけを担当し、文章を生成しない
 - Jev判定とUser評価は独立したデータとして扱い、互いに上書きしない
 - 記事全文を保存しない。秘密情報をGitへ含めない
+- 初回CLI接続試験の限定条件は [02_REQUIREMENTS_DEFINITION.md](./02_REQUIREMENTS_DEFINITION.md) §5.1.6 を入口・本体要件との境界の正本とし、接続方式・入力・質問は [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) §6、段階別の試験方針は [06_OPERATION_AND_HANDOFF.md](./06_OPERATION_AND_HANDOFF.md) §5.3 を参照する
 
 2026-10-23に検討した将来の選別ロジック（Filter・重み・関係性）の草案は [05_ARCHITECTURE_DESIGN.md](./05_ARCHITECTURE_DESIGN.md) §6に記録する。Jev仕様との照合前であり、初期版要件・全件保存・既存分類の変更ではない。
 
